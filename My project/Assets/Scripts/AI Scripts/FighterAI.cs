@@ -10,16 +10,17 @@ public class FighterAI : BaseAI
     {
         if (currentTarget == null)
         {
+            currentMode = 0;
             GetTarget();
         }
 
-        if (actionTimer > 1)
+        if (actionTimer > 3) //When next attack
         {
             GetTarget(); //Checks for nearest target
+            currentStrafe = Random.Range(0, 2);
             actionTimer = 0;
         }
 
-        Pathfind();
         Debug.Log(currentTarget);
 
         if (dashTimer > dashCooldown)
@@ -29,7 +30,43 @@ public class FighterAI : BaseAI
             dashCooldown = Random.Range(5, 10);
         }
 
-        //When the enemy reaches the point it needs to stop, enter attacking mode
+        if (Vector3.Distance(currentTarget.transform.position, transform.position) <= navMeshAgent.stoppingDistance && currentMode == 0)
+        {
+            currentMode = 1; //In attacking distance
+            Debug.Log("In attacking mode");
+        }
+
+        //When the enemy reaches too close, retreat away (Ranged)
+        if (Vector3.Distance(currentTarget.transform.position, transform.position) < navMeshAgent.stoppingDistance - 0.5 && !retreatTrigger && pilotPlayStyle == 1)
+        {
+            Debug.Log("Target too close");
+            retreatTrigger = true;
+        }
+        else
+        {
+            Pathfind();
+        }
+
+        if (retreatTrigger)
+        {
+            transform.position += -transform.forward * Time.deltaTime;
+            if (Vector3.Distance(currentTarget.transform.position, transform.position) >= navMeshAgent.stoppingDistance)
+            {
+                retreatTrigger = false;
+            }
+        }
+
+        if (currentMode == 1) //Attack mode special movement
+        {
+            if (currentStrafe == 0)
+            {
+                transform.position += transform.right * Time.deltaTime * 0.5f;
+            }
+            else
+            {
+                transform.position += -transform.right * Time.deltaTime * 0.5f;
+            }
+        }
 
     }
 
@@ -49,7 +86,7 @@ public class FighterAI : BaseAI
         }
         else // Ranged Type
         {
-            navMeshAgent.stoppingDistance = 7;
+            navMeshAgent.stoppingDistance = mechRangedRange;
         }
     }
 
@@ -90,13 +127,22 @@ public class FighterAI : BaseAI
         //Grab my dash code from previous project
     }
 
-    void Action()
+    public override void Attack()
     {
+        if (pilotPlayStyle == 0) //Melee Attack
+        {
 
+        }
+        else //Ranged attackk
+        {
+            
+        }
     }
+
 
     void Pathfind()
     {
+        transform.LookAt(currentTarget.transform);
         navMeshAgent.destination = currentTarget.transform.position;
     }
 

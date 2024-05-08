@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RusherAI : BaseAI
+public class DefenderAI : BaseAI
 {
+    public GameObject currentDefender;
     // Update is called once per frame
     void Update()
     {
+        if (currentDefender == null)
+        {
+            GetBaseDefender();
+        }
+
         if (currentTarget == null)
         {
             GetTarget();
@@ -16,6 +22,10 @@ public class RusherAI : BaseAI
         if (actionTimer > currentMobility)
         {
             GetTarget(); //Checks for nearest target
+            if (currentMode == 1)
+            {
+                Attack();
+            }
             actionTimer = 0;
         }
 
@@ -26,15 +36,30 @@ public class RusherAI : BaseAI
             dashCooldown = Random.Range(5, 10);
         }
 
-        Pathfind();
-        Debug.Log(currentTarget);
-
-        if (Vector3.Distance(currentTarget.transform.position, transform.position) <= navMeshAgent.stoppingDistance && currentMode == 0)
+        if (currentTarget != null)
         {
-            currentMode = 1; //In attacking distance
-            Debug.Log("In attacking mode");
-        }
+            //When the enemy reaches too close, retreat away (Ranged)
+            if (Vector3.Distance(currentTarget.transform.position, transform.position) < navMeshAgent.stoppingDistance - 0.5 && !retreatTrigger && pilotPlayStyle == 1)
+            {
+                Debug.Log("Target too close");
+                retreatTrigger = true;
+            }
+            else
+            {
+                Pathfind();
+            }
 
+            //When to go into attacking mode
+            if (Vector3.Distance(currentTarget.transform.position, transform.position) <= navMeshAgent.stoppingDistance && currentMode == 0)
+            {
+                currentMode = 1; //In attacking distance
+                Debug.Log("In attacking mode");
+            }
+        }
+        else //No targets
+        {
+            Pathfind(); //For if the protected turret change
+        }
 
         if (currentMode == 1) //Attack mode special movement
         {
@@ -69,6 +94,37 @@ public class RusherAI : BaseAI
         }
     }
 
+    public void GetBaseDefender() //Targets only the base defences
+    {
+        GameObject[] objectsWithTag;
+        if (teamNumber == 1)
+        {
+            objectsWithTag = GameObject.FindGameObjectsWithTag("Team1");
+        }
+        else
+        {
+            objectsWithTag = GameObject.FindGameObjectsWithTag("Team2");
+        }
+
+        float nearestDistance = Mathf.Infinity;
+
+        foreach (GameObject obj in objectsWithTag)
+        {
+            MonoBehaviour scriptComponent = obj.GetComponent<BaseDefenceAI>() as MonoBehaviour;
+
+            if (scriptComponent != null)
+            {
+                float distance = Vector3.Distance(transform.position, obj.transform.position);
+
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    currentDefender = obj;
+                }
+            }
+        }
+    }
+
     public override void GetTarget() //Targets only the base defences
     {
         GameObject[] objectsWithTag;
@@ -81,11 +137,11 @@ public class RusherAI : BaseAI
             objectsWithTag = GameObject.FindGameObjectsWithTag("Team1");
         }
 
-        float nearestDistance = Mathf.Infinity;
+        float nearestDistance = 7; //Try see this radius
 
         foreach (GameObject obj in objectsWithTag)
         {
-            MonoBehaviour scriptComponent = obj.GetComponent<BaseDefenceAI>() as MonoBehaviour;
+            MonoBehaviour scriptComponent = obj.GetComponent<BaseAI>() as MonoBehaviour;
 
             if (scriptComponent != null)
             {
@@ -119,7 +175,14 @@ public class RusherAI : BaseAI
 
     void Pathfind()
     {
-        navMeshAgent.destination = currentTarget.transform.position;
+        if (currentTarget == null)
+        {
+            navMeshAgent.destination = currentDefender.transform.position;
+        }
+        else
+        {
+            navMeshAgent.destination = currentTarget.transform.position;
+        }
     }
 
 }
