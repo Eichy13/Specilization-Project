@@ -13,17 +13,26 @@ public class RusherAI : BaseAI
             GetTarget();
         }
 
-        if (actionTimer > currentMobility)
+        if (actionTimer > actionCooldown)
         {
             GetTarget(); //Checks for nearest target
+            if (currentMode == 1) //Mech is in attack mode 
+            {
+                Attack();
+            }
+            actionCooldown = Random.Range(2 ,4);
             actionTimer = 0;
         }
 
         if (dashTimer > dashCooldown)
         {
-            Dash();
+            dashActive = true;
+            if (currentMode == 0) //Dash off cooldown if its a mobility dash to catch up to its target
+            {
+                StartCoroutine(Dash(0));
+            }
             dashTimer = 0;
-            dashCooldown = Random.Range(5, 10);
+            dashCooldown = Random.Range(3, 5);
         }
 
         Pathfind();
@@ -52,7 +61,10 @@ public class RusherAI : BaseAI
     private void FixedUpdate()
     {
         actionTimer += Time.deltaTime;
-        dashTimer += Time.deltaTime; 
+        if (!dashActive)
+        {
+            dashTimer += Time.deltaTime;
+        }
     }
 
     public override void NavSetUp()
@@ -97,23 +109,6 @@ public class RusherAI : BaseAI
                     currentTarget = obj;
                 }
             }
-        }
-    }
-
-    public override void Dash()
-    {
-        //Grab my dash code from previous project
-    }
-
-    public override void Attack()
-    {
-        if (pilotPlayStyle == 0) //Melee Attack
-        {
-
-        }
-        else //Ranged attackk
-        {
-            
         }
     }
 
