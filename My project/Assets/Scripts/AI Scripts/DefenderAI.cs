@@ -9,6 +9,8 @@ public class DefenderAI : BaseAI
     // Update is called once per frame
     void Update()
     {
+        healthBarSprite.fillAmount = Mathf.MoveTowards(healthBarSprite.fillAmount, healthBarTarget, 3 * Time.deltaTime);
+
         if (currentDefender == null)
         {
             GetBaseDefender();
@@ -33,10 +35,6 @@ public class DefenderAI : BaseAI
         if (dashTimer > dashCooldown)
         {
             dashActive = true;
-            if (currentMode == 0) //Dash off cooldown if its a mobility dash to catch up to its target
-            {
-                StartCoroutine(Dash(0));
-            }
             dashTimer = 0;
             dashCooldown = Random.Range(3, 5);
         }
@@ -59,6 +57,16 @@ public class DefenderAI : BaseAI
             {
                 currentMode = 1; //In attacking distance
                 Debug.Log("In attacking mode");
+            }
+
+            if (Vector3.Distance(currentTarget.transform.position, transform.position) <= navMeshAgent.stoppingDistance && currentMode == 0 && pilotPlayStyle == 0) //Melee Attacking check
+            {
+                currentMode = 1;
+                Attack();
+            }
+            else if (Vector3.Distance(currentTarget.transform.position, transform.position) >= navMeshAgent.stoppingDistance && currentMode == 0 && pilotPlayStyle == 0)
+            {
+                currentMode = 0;
             }
         }
         else //No targets

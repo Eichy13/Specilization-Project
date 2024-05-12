@@ -8,6 +8,8 @@ public class FighterAI : BaseAI
     // Update is called once per frame
     void Update()
     {
+        healthBarSprite.fillAmount = Mathf.MoveTowards(healthBarSprite.fillAmount, healthBarTarget, 3 * Time.deltaTime);
+
         if (currentTarget == null)
         {
             currentMode = 0;
@@ -17,7 +19,7 @@ public class FighterAI : BaseAI
         if (actionTimer > actionCooldown) //When next attack
         {
             GetTarget(); //Checks for nearest target
-            if (currentMode == 1) //Mech is in attack mode 
+            if (currentMode == 1) //Mech is in attack mode (For ranged)
             {
                 Attack();
             }
@@ -26,7 +28,7 @@ public class FighterAI : BaseAI
             actionTimer = 0;
         }
 
-        Debug.Log(currentTarget);
+        //Debug.Log(currentTarget);
 
         if (dashTimer > dashCooldown)
         {
@@ -40,13 +42,23 @@ public class FighterAI : BaseAI
             dashCooldown = Random.Range(3, 5); 
         }
 
-        if (Vector3.Distance(currentTarget.transform.position, transform.position) <= navMeshAgent.stoppingDistance && currentMode == 0)
+        if (Vector3.Distance(currentTarget.transform.position, transform.position) <= navMeshAgent.stoppingDistance && currentMode == 0 && pilotPlayStyle == 1) //Ranged Attacking mode
         {
             currentMode = 1; //In attacking distance
-            Debug.Log("In attacking mode");
+            Debug.Log("In ranged attacking mode");
         }
 
-        //When the enemy reaches too close, retreat away (Ranged)
+        if (Vector3.Distance(currentTarget.transform.position, transform.position) <= navMeshAgent.stoppingDistance && currentMode == 0 && pilotPlayStyle == 0) //Melee Attacking check
+        {
+            currentMode = 1;
+            Attack();
+        }
+        else if (Vector3.Distance(currentTarget.transform.position, transform.position) >= navMeshAgent.stoppingDistance && currentMode == 0 && pilotPlayStyle == 0)
+        {
+            currentMode = 0;
+        }
+
+            //When the enemy reaches too close, retreat away (Ranged)
         if (Vector3.Distance(currentTarget.transform.position, transform.position) < navMeshAgent.stoppingDistance - 0.5 && !retreatTrigger && pilotPlayStyle == 1)
         {
             Debug.Log("Target too close");
@@ -59,6 +71,10 @@ public class FighterAI : BaseAI
 
         if (retreatTrigger)
         {
+            if (dashActive == true)
+            {
+                StartCoroutine(Dash(1)); //Dash away from the approaching enemy
+            }
             transform.position += -transform.forward * Time.deltaTime;
             if (Vector3.Distance(currentTarget.transform.position, transform.position) >= navMeshAgent.stoppingDistance)
             {
@@ -82,6 +98,10 @@ public class FighterAI : BaseAI
 
     private void FixedUpdate()
     {
+        if (pilotPlayStyle == 0)
+        {
+            meleeTimer += Time.deltaTime;
+        }
         actionTimer += Time.deltaTime;
         if (!dashActive)
         {
@@ -95,7 +115,7 @@ public class FighterAI : BaseAI
         navMeshAgent.speed = currentMobility / 200;
         if (pilotPlayStyle == 0) // Melee Type
         {
-            navMeshAgent.stoppingDistance = 1;
+            navMeshAgent.stoppingDistance = 1f;
         }
         else // Ranged Type
         {

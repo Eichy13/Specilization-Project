@@ -8,19 +8,22 @@ public class RusherAI : BaseAI
     // Update is called once per frame
     void Update()
     {
+        healthBarSprite.fillAmount = Mathf.MoveTowards(healthBarSprite.fillAmount, healthBarTarget, 3 * Time.deltaTime);
+
         if (currentTarget == null)
         {
             GetTarget();
         }
 
-        if (actionTimer > actionCooldown)
+        if (actionTimer > actionCooldown) //When next attack
         {
             GetTarget(); //Checks for nearest target
-            if (currentMode == 1) //Mech is in attack mode 
+            if (currentMode == 1) //Mech is in attack mode (For ranged)
             {
                 Attack();
             }
-            actionCooldown = Random.Range(2 ,4);
+            actionCooldown = Random.Range(2, 4);
+            currentStrafe = Random.Range(0, 2);
             actionTimer = 0;
         }
 
@@ -38,10 +41,20 @@ public class RusherAI : BaseAI
         Pathfind();
         Debug.Log(currentTarget);
 
-        if (Vector3.Distance(currentTarget.transform.position, transform.position) <= navMeshAgent.stoppingDistance && currentMode == 0)
+        if (Vector3.Distance(currentTarget.transform.position, transform.position) <= navMeshAgent.stoppingDistance && currentMode == 0 && pilotPlayStyle == 1) //Ranged Attacking mode
         {
             currentMode = 1; //In attacking distance
-            Debug.Log("In attacking mode");
+            Debug.Log("In ranged attacking mode");
+        }
+
+        if (Vector3.Distance(currentTarget.transform.position, transform.position) <= navMeshAgent.stoppingDistance && currentMode == 0 && pilotPlayStyle == 0) //Melee Attacking check
+        {
+            currentMode = 1;
+            Attack();
+        }
+        else if (Vector3.Distance(currentTarget.transform.position, transform.position) >= navMeshAgent.stoppingDistance && currentMode == 0 && pilotPlayStyle == 0)
+        {
+            currentMode = 0;
         }
 
 
