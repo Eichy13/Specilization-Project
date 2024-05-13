@@ -161,4 +161,6 @@ public class FighterAI : BaseAI
         navMeshAgent.destination = currentTarget.transform.position;
     }
 
+   
+
 }

@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BaseDefenceAI : MonoBehaviour
 {
-    public int health;
+    public float health;
+    private int currentMaxHealth;
     public int damage;
     public int baseType;
     public int teamNumber;
     private float actionTimer;
+    [SerializeField] protected Image healthBarSprite;
+    protected float healthBarTarget;
 
     public GameObject currentTarget;
    
@@ -23,10 +27,15 @@ public class BaseDefenceAI : MonoBehaviour
             teamNumber = 2;
         }
         GetTarget();
+
+        healthBarTarget = 1;
+        UpdateHealthBar();
     }
 
     void Update()
     {
+        healthBarSprite.fillAmount = Mathf.MoveTowards(healthBarSprite.fillAmount, healthBarTarget, 3 * Time.deltaTime);
+
         if (currentTarget == null)
         {
             GetTarget();
@@ -81,5 +90,23 @@ public class BaseDefenceAI : MonoBehaviour
     public void Attack() //Shoot the target
     {
 
+    }
+
+    public void DamageTaken(int damagae)
+    {
+        health -= damagae / 10   ;
+        Debug.Log("New health: " + health);
+
+        UpdateHealthBar();
+
+        if (health <= 0)
+        {
+            Destroy(gameObject); //Death
+        }
+    }
+
+    public void UpdateHealthBar()
+    {
+        healthBarTarget = health / currentMaxHealth;
     }
 }

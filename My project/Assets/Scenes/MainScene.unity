@@ -947,6 +947,7 @@ MonoBehaviour:
   damage: 100
   baseType: 1
   teamNumber: 0
+  healthBarSprite: {fileID: 0}
   currentTarget: {fileID: 0}
 --- !u!1 &81562147
 GameObject:
@@ -1466,6 +1467,7 @@ MonoBehaviour:
   damage: 100
   baseType: 1
   teamNumber: 0
+  healthBarSprite: {fileID: 0}
   currentTarget: {fileID: 0}
 --- !u!1 &155362811
 GameObject:
@@ -3742,7 +3744,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &636685241
 Transform:
   m_ObjectHideFlags: 0
@@ -5440,6 +5442,7 @@ MonoBehaviour:
   damage: 100
   baseType: 1
   teamNumber: 0
+  healthBarSprite: {fileID: 0}
   currentTarget: {fileID: 0}
 --- !u!1 &911068893
 GameObject:
@@ -8656,7 +8659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1629710898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9544,6 +9547,7 @@ MonoBehaviour:
   damage: 100
   baseType: 1
   teamNumber: 0
+  healthBarSprite: {fileID: 0}
   currentTarget: {fileID: 0}
 --- !u!1 &1715506561
 GameObject:
@@ -10964,6 +10968,7 @@ MonoBehaviour:
   damage: 200
   baseType: 2
   teamNumber: 0
+  healthBarSprite: {fileID: 0}
   currentTarget: {fileID: 0}
 --- !u!64 &1925307994
 MeshCollider:
@@ -12248,6 +12253,7 @@ MonoBehaviour:
   damage: 200
   baseType: 2
   teamNumber: 0
+  healthBarSprite: {fileID: 0}
   currentTarget: {fileID: 0}
 --- !u!64 &2335151955802031635
 MeshCollider:

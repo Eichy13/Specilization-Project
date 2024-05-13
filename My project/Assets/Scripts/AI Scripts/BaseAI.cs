@@ -31,6 +31,8 @@ public class BaseAI : MonoBehaviour
     protected int currentMode; //Mode 0 = chasing/looking for unit, Mode 1 = Found a target and attacks it
     protected int currentStrafe; //Mode 0 = Strafe left, Mode 1 = Strafe right
     protected bool dashActive; //If the dash is currently off cooldown
+    
+    //protected enum 
 
 
     [SerializeField] protected Image healthBarSprite;
@@ -140,7 +142,7 @@ public class BaseAI : MonoBehaviour
         yield return null;
     }
 
-    public void Attack()
+    public virtual void Attack() //Add an unique attack function to each one so that the damage multipliers can be done accordingly
     {
         if (pilotPlayStyle == 0 && meleeTimer >= meleeCooldown) //Melee Attack
         {
@@ -177,15 +179,26 @@ public class BaseAI : MonoBehaviour
                 }
 
                 LazerProjectile lazerProjectile = projectile.GetComponent<LazerProjectile>();
-                StartCoroutine(lazerProjectile.Shoot(currentTarget.transform.position, currentRangedDamage));    
+                StartCoroutine(lazerProjectile.Shoot(currentTarget.transform.position));    
 
                 BaseAI currentTargetAI = currentTarget.GetComponent<BaseAI>();
-                if (currentTargetAI != null) //Incase shooting at base
+                if (currentTargetAI != null) //Shooting at A
                 {
                     if (currentTargetAI.dashActive == true)
                     {
                         StartCoroutine(currentTargetAI.Dash(Random.Range(2, 4))); //Enemy will dodge the projectile if they have dash
                     }
+                    else
+                    {
+                        currentTargetAI.DamageTaken(currentRangedDamage);
+                        //Damage
+                    }
+                }
+
+                BaseDefenceAI currentTargetBase = currentTarget.GetComponent<BaseDefenceAI>();
+                if (currentTargetBase != null) //Shooting at base
+                {
+                    currentTargetBase.DamageTaken(currentRangedDamage);
                 }
                 //Call the event here (But first do it without the event)
             }
@@ -194,7 +207,7 @@ public class BaseAI : MonoBehaviour
 
     public void DamageTaken(int damagae)
     {
-        currentHealth -= damagae / 25;
+        currentHealth -= damagae / 10   ;
         Debug.Log("New health: " + currentHealth);
 
         UpdateHealthBar();
