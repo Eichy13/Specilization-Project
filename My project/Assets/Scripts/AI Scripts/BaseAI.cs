@@ -19,23 +19,28 @@ public class BaseAI : MonoBehaviour
     public int pilotMeleeDamage;
     public int pilotRangedDamage;
     public int pilotMobility;
+    public enum PilotAIType {Fighter, Rusher, Defender};
+    public PilotAIType pilotAIType;
 
     public GameObject currentTarget; //Who to target
 
     //Info for the actual stats of the ai
     protected float currentHealth;
     protected float currentMaxHealth;
-    protected int currentMeleeDamage;
-    protected int currentRangedDamage;
-    protected int currentMobility;
+    protected float currentMeleeDamage;
+    protected float currentRangedDamage;
+    protected float currentMobility;
     protected int currentMode; //Mode 0 = chasing/looking for unit, Mode 1 = Found a target and attacks it
     protected int currentStrafe; //Mode 0 = Strafe left, Mode 1 = Strafe right
     protected bool dashActive; //If the dash is currently off cooldown
-    
-    //protected enum 
-
+    protected float damageBuff; //Goes up to -3 to +3
+    protected float defenceBuff; //Goes up to -3 to +3
+    protected float speedBuff; //Goes up to -3 to +3
 
     [SerializeField] protected Image healthBarSprite;
+    [SerializeField] protected Image[] damageBuffSprite;
+    [SerializeField] protected Image[] defenceBuffSprite;
+    [SerializeField] protected Image[] speedBuffSprite;
     protected int pilotPlayStyle; //Melee or Ranged AI
     protected NavMeshAgent navMeshAgent;
     protected float actionTimer; //Time till next attack
@@ -48,6 +53,9 @@ public class BaseAI : MonoBehaviour
     protected bool retreatTrigger;
     public UnityEvent events = new UnityEvent(); //Event triggers for abilities and getting hit
     protected float healthBarTarget;
+
+    //All objects in specific ranges
+    protected List<GameObject> allyObjectsInRange3 = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +72,9 @@ public class BaseAI : MonoBehaviour
         meleeCooldown = Random.Range(2 ,4);
         dashCooldown = Random.Range(3, 5); 
         dashActive = false;
+        damageBuff = 0;
+        defenceBuff = 0;
+        speedBuff = 0;
         healthBarTarget = 1;
 
         if (currentMeleeDamage > currentRangedDamage)
@@ -77,6 +88,7 @@ public class BaseAI : MonoBehaviour
 
         actionTimer = 0;
         NavSetUp();
+        UpdateIcons();
         if (gameObject.tag == "Team1")
         {
             teamNumber = 1;
@@ -144,6 +156,19 @@ public class BaseAI : MonoBehaviour
 
     public virtual void Attack() //Add an unique attack function to each one so that the damage multipliers can be done accordingly
     {
+        //Damage mulitplier Fighter: 
+        //Fighter x Fighter = 1.0
+        //Fighter x Rusher = 0.75
+        //Fighter x Defender = 1.5
+        //Fighter x Base = 0.5
+
+        //Damage mulitplier Rusher: 
+        //Rusher x Base = 2.0
+
+        //Damage mulitplier Defender: 
+        //Defender x Fighter = 0.5
+        //Defender x Rusher = 1.5
+
         if (pilotPlayStyle == 0 && meleeTimer >= meleeCooldown) //Melee Attack
         {
             Debug.Log("Melee Attack");
@@ -152,14 +177,22 @@ public class BaseAI : MonoBehaviour
             meleeCooldown = Random.Range(1, 3);
 
             BaseAI currentTargetAI = currentTarget.GetComponent<BaseAI>();
-            if (currentTargetAI.dashActive == true)
+            if (currentTargetAI != null) //Attacking mech
             {
-                StartCoroutine(currentTargetAI.Dash(1)); //Enemy will dodge the backwards if they have dash
+                if (currentTargetAI.dashActive == true)
+                {
+                    StartCoroutine(currentTargetAI.Dash(1)); //Enemy will dodge the backwards if they have dash
+                }
+                else
+                {   
+                    currentTargetAI.DamageTaken(currentMeleeDamage * (1.00f + ((damageBuff * 10) / 100)), pilotAIType);
+                }
             }
-            else
+
+            BaseDefenceAI currentTargetBase = currentTarget.GetComponent<BaseDefenceAI>();
+            if (currentTargetBase != null) //Attacking base
             {
-                //Damage dealt to enemy
-                currentTargetAI.DamageTaken(currentMeleeDamage);
+                currentTargetBase.DamageTaken(currentRangedDamage  * (1.00f + ((damageBuff * 10) / 100)), pilotAIType);
             }
         }
         else if (pilotPlayStyle == 1) //Ranged attack
@@ -190,7 +223,7 @@ public class BaseAI : MonoBehaviour
                     }
                     else
                     {
-                        currentTargetAI.DamageTaken(currentRangedDamage);
+                        currentTargetAI.DamageTaken(currentRangedDamage  * (1.00f + ((damageBuff * 10) / 100)), pilotAIType);
                         //Damage
                     }
                 }
@@ -198,16 +231,48 @@ public class BaseAI : MonoBehaviour
                 BaseDefenceAI currentTargetBase = currentTarget.GetComponent<BaseDefenceAI>();
                 if (currentTargetBase != null) //Shooting at base
                 {
-                    currentTargetBase.DamageTaken(currentRangedDamage);
+                    currentTargetBase.DamageTaken(currentRangedDamage  * (1.00f + ((damageBuff * 10) / 100)), pilotAIType);
                 }
                 //Call the event here (But first do it without the event)
             }
         }
     }
 
-    public void DamageTaken(int damagae)
+    public void DamageTaken(float damage, PilotAIType attackingPilotType)
     {
-        currentHealth -= damagae / 10   ;
+        switch (attackingPilotType)
+        {
+            case (PilotAIType.Fighter):
+            {
+                if (pilotAIType == PilotAIType.Rusher)
+                {
+                    damage = damage * 0.75f;
+                }
+                else if (pilotAIType == PilotAIType.Defender)
+                {
+                    damage = damage * 1.5f;
+                }
+                break;
+            }
+            case (PilotAIType.Defender):
+            {
+                if (pilotAIType == PilotAIType.Fighter)
+                {
+                    damage = damage * 0.5f;
+                }
+                else if (pilotAIType == PilotAIType.Rusher)
+                {
+                    damage = damage * 2f;
+                }
+                break;
+            }
+            default: 
+            {
+                break;
+            }
+        }
+
+        currentHealth -= (damage / 10); //Prep defence buff
         Debug.Log("New health: " + currentHealth);
 
         UpdateHealthBar();
@@ -238,5 +303,105 @@ public class BaseAI : MonoBehaviour
     public void UpdateHealthBar()
     {
         healthBarTarget = currentHealth / currentMaxHealth;
+    }
+
+    public void MechActive()
+    {
+        MechActiveCheckers();
+        //Check which mech active to use
+        switch (mechActiveType)
+        {
+            case (0): // +1 Damage buff around an aoe (Small range)
+            {
+                foreach (GameObject obj in allyObjectsInRange3)
+                {
+                    BaseAI temp = obj.GetComponent<BaseAI>();
+                    temp.damageBuff += 1;
+                    temp.UpdateIcons();
+                }
+                damageBuff += 1;
+                UpdateIcons();
+                break;
+            }
+            case (1): 
+            {
+                break;
+            }
+            default: 
+            {
+                break;
+            }
+        }   
+    }
+
+    public void MechActiveCheckers() //Check all the near objects 
+    {
+        //Clear all lists before checking again
+        allyObjectsInRange3.Clear();
+
+        GameObject[] objectsWithTag;
+        if (teamNumber == 1)
+        {
+            objectsWithTag = GameObject.FindGameObjectsWithTag("Team1");
+        }
+        else
+        {
+            objectsWithTag = GameObject.FindGameObjectsWithTag("Team2");
+        }
+
+        float nearestDistance = 3; //Try see this radius
+
+        foreach (GameObject obj in objectsWithTag)
+        {
+            MonoBehaviour scriptComponent = obj.GetComponent<BaseAI>() as MonoBehaviour;
+
+            if (scriptComponent != null)
+            {
+                float distance = Vector3.Distance(transform.position, obj.transform.position);
+
+                if (distance <= nearestDistance)
+                {
+                    allyObjectsInRange3.Add(obj);
+                }
+            }
+        }
+    }
+
+    public void UpdateIcons()
+    {
+        //Turn off every icon
+        foreach (Image icon in damageBuffSprite)
+        {
+            icon.enabled = false;
+        }
+        foreach (Image icon in defenceBuffSprite)
+        {
+            icon.enabled = false;
+        }
+        foreach (Image icon in speedBuffSprite)
+        {
+            icon.enabled = false;
+        }
+
+        //Dont forget to add it to consider negative buffs 
+        if (damageBuff != 0)
+        {
+            damageBuffSprite[(int)damageBuff + 3].enabled = true;
+        }
+        if (defenceBuff != 0)
+        {
+            defenceBuffSprite[(int)defenceBuff + 3].enabled = true;
+        }
+        if (speedBuff != 0)
+        {
+            speedBuffSprite[(int)speedBuff + 3].enabled = true;
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Draw a sphere to visualize the range in the Scene view
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 3);
     }
 }

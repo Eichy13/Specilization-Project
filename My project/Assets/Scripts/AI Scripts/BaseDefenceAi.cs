@@ -92,9 +92,27 @@ public class BaseDefenceAI : MonoBehaviour
 
     }
 
-    public void DamageTaken(int damagae)
+    public void DamageTaken(float damage, BaseAI.PilotAIType attackingPilotType)
     {
-        health -= damagae / 10   ;
+        switch (attackingPilotType)
+        {
+            case (BaseAI.PilotAIType.Fighter):
+            {
+                damage = damage * 0.5f;
+                break;
+            }
+            case (BaseAI.PilotAIType.Rusher):
+            {
+                damage = damage * 2f;
+                break;
+            }
+            default: 
+            {
+                break;
+            }
+        }
+
+        health -= damage / 10   ;
         Debug.Log("New health: " + health);
 
         UpdateHealthBar();
