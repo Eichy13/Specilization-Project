@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class BaseDefenceAI : MonoBehaviour
 {
-    public float health;
-    private int currentMaxHealth;
+    public float currentMaxHealth;
+    private float health;
     public int damage;
     public int baseType;
     public int teamNumber;
@@ -28,6 +28,7 @@ public class BaseDefenceAI : MonoBehaviour
         }
         GetTarget();
 
+        health = currentMaxHealth;
         healthBarTarget = 1;
         UpdateHealthBar();
     }
@@ -125,6 +126,7 @@ public class BaseDefenceAI : MonoBehaviour
 
     public void UpdateHealthBar()
     {
+        Debug.Log("Update HP");
         healthBarTarget = health / currentMaxHealth;
     }
 }

@@ -58,8 +58,8 @@ public class FighterAI : BaseAI
             currentMode = 0;
         }
 
-            //When the enemy reaches too close, retreat away (Ranged)
-        if (Vector3.Distance(currentTarget.transform.position, transform.position) < navMeshAgent.stoppingDistance - 0.5 && !retreatTrigger && pilotPlayStyle == 1)
+        //When the enemy reaches too close, retreat away (Ranged)
+        if (Vector3.Distance(currentTarget.transform.position, transform.position) < navMeshAgent.stoppingDistance - 0.5 && !retreatTrigger && pilotPlayStyle == 1 && !currentTarget.GetComponent<BaseDefenceAI>())
         {
             Debug.Log("Target too close");
             retreatTrigger = true;
@@ -160,7 +160,4 @@ public class FighterAI : BaseAI
         transform.LookAt(currentTarget.transform);
         navMeshAgent.destination = currentTarget.transform.position;
     }
-
-   
-
 }

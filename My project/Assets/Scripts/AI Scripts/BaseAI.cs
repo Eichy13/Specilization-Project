@@ -13,12 +13,15 @@ public class BaseAI : MonoBehaviour
     public int mechRangedDamage;
     public int mechRangedRange; //Set unique stopping distance for specific mech ranges (Only triggers if the mech is in ranged mode)
     public int mechMobility;
+    public int mechCost;
 
     public int pilotPassiveType; //Pilot selected info
     public int pilotHealth;
     public int pilotMeleeDamage;
     public int pilotRangedDamage;
     public int pilotMobility;
+    public int pilotCost;
+
     public enum PilotAIType {Fighter, Rusher, Defender};
     public PilotAIType pilotAIType;
 
@@ -384,17 +387,29 @@ public class BaseAI : MonoBehaviour
         }
 
         //Dont forget to add it to consider negative buffs 
+        //if (damageBuff != 0)
+        //{
+        //    damageBuffSprite[(int)damageBuff + 3].enabled = true;
+        //}
+        //if (defenceBuff != 0)
+        //{
+        //    defenceBuffSprite[(int)defenceBuff + 3].enabled = true;
+        //}
+        //if (speedBuff != 0)
+        //{
+        //    speedBuffSprite[(int)speedBuff + 3].enabled = true;
+        //}
         if (damageBuff != 0)
         {
-            damageBuffSprite[(int)damageBuff + 3].enabled = true;
+            damageBuffSprite[0].enabled = true;
         }
         if (defenceBuff != 0)
         {
-            defenceBuffSprite[(int)defenceBuff + 3].enabled = true;
+            defenceBuffSprite[0].enabled = true;
         }
         if (speedBuff != 0)
         {
-            speedBuffSprite[(int)speedBuff + 3].enabled = true;
+            speedBuffSprite[0].enabled = true;
         }
     }
 
