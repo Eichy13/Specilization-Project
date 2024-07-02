@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc76c6c4e20cb2478de7b2d4074d242, type: 3}
+  m_Name: Mech13
+  m_EditorClassIdentifier: 
+  mechHealth: 230
+  mechMeleeDamage: 100
+  mechRangedDamage: 450
+  mechMobility: 200
+  mechRange: 5
+  mechCost: 7
+  mechAbility: 0
+  mechName: IDK Mech
+  mechDescription: Idk what to write about this mech, it has a gun and it shoots
+    good
+  mechAbilityDescription: 'Ability: Good stuff
+
+    Gain +2 damage buff'
+  mechImage1: {fileID: 21300000, guid: ef6834e37ff384f468ed9c81ef39c3d7, type: 3}
+  mechImage2: {fileID: 0}

@@ -61,13 +61,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\TeamManager.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Objects\SelectedLoadout.cs" />
     <Compile Include="Assets\Scripts\AI Scripts\BaseDefenceAi.cs" />
     <Compile Include="Assets\Scripts\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\AI Scripts\RusherAI.cs" />
     <Compile Include="Assets\Scripts\Setup Scripts\StartMenu.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Objects\SelectedMechStats.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Objects\SelectedPilotStats.cs" />
     <Compile Include="Assets\Scripts\AI Scripts\DefenderAI.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\AI Scripts\FighterAI.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Objects\SelectedBaseAbilities.cs" />
     <Compile Include="Assets\Scenes\Player Manager.cs" />
     <Compile Include="Assets\Scripts\MechSpawner.cs" />
     <Compile Include="Assets\Scripts\LazerProjectile.cs" />

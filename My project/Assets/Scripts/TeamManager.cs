@@ -9,36 +9,32 @@ public class TeamManager : MonoBehaviour
     private int cost;
     [SerializeField] private CinemachineVirtualCamera defaultCamera;
     [SerializeField] private CinemachineVirtualCamera[] mechCameras;
+    [SerializeField] private SelectedLoadout loadout;
 
     //In the future the mechs are loaded in by the mechManager
-    public GameObject mech1;
-    private BaseAI mech1AI;
+    [SerializeField] private GameObject mech1;
     private bool mech1Active;
     private int mech1Cost;
     [SerializeField] private TMP_Text mech1CostText;
 
-    public GameObject mech2;
-    private BaseAI mech2AI;
+    [SerializeField] private GameObject mech2;
     private bool mech2Active;
     private int mech2Cost;
     [SerializeField] private TMP_Text mech2CostText;
 
-    public GameObject mech3;
-    private BaseAI mech3AI;
+    [SerializeField] private GameObject mech3;
     private bool mech3Active;
     private int mech3Cost;
     [SerializeField] private TMP_Text mech3CostText;
 
-    public GameObject mech4;
-    private BaseAI mech4AI;
+    [SerializeField] private GameObject mech4;
     private bool mech4Active;
     private int mech4Cost;
     [SerializeField] private TMP_Text mech4CostText;
 
-    public GameObject mech5;
-    private BaseAI mech5AI;
-    private bool mech5Active;
+    [SerializeField] private GameObject mech5;
     private int mech5Cost;
+    private bool mech5Active;
     [SerializeField] private TMP_Text mech5CostText;
 
     [SerializeField] private TMP_Text costText; //Only neeeded for player
@@ -46,18 +42,12 @@ public class TeamManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mech1AI = mech1.GetComponent<BaseAI>();
-        mech2AI = mech2.GetComponent<BaseAI>();
-        mech3AI = mech3.GetComponent<BaseAI>();
-        mech4AI = mech4.GetComponent<BaseAI>();
-        mech5AI = mech5.GetComponent<BaseAI>();
-
         //Save the cost of each mech
-        mech1Cost = mech1AI.pilotCost + mech1AI.mechCost;
-        mech2Cost = mech2AI.pilotCost + mech2AI.mechCost;
-        mech3Cost = mech3AI.pilotCost + mech3AI.mechCost;
-        mech4Cost = mech4AI.pilotCost + mech4AI.mechCost;
-        mech5Cost = mech5AI.pilotCost + mech5AI.mechCost;
+        mech1Cost = loadout.selectedMechStats1.mechCost + loadout.selectedPilotStats1.pilotCost;
+        mech2Cost = loadout.selectedMechStats2.mechCost + loadout.selectedPilotStats2.pilotCost;
+        mech3Cost = loadout.selectedMechStats3.mechCost + loadout.selectedPilotStats3.pilotCost;
+        mech4Cost = loadout.selectedMechStats4.mechCost + loadout.selectedPilotStats4.pilotCost;
+        mech5Cost = loadout.selectedMechStats5.mechCost + loadout.selectedPilotStats5.pilotCost;
 
         mech1CostText.text = "Cost :" + mech1Cost;
         mech2CostText.text = "Cost :" + mech2Cost;
@@ -66,13 +56,6 @@ public class TeamManager : MonoBehaviour
         mech5CostText.text = "Cost :" + mech5Cost;
 
         cost = 0;
-
-        //Disable the ai after their start function works
-        mech1.SetActive(false);
-        mech2.SetActive(false);
-        mech3.SetActive(false);
-        mech4.SetActive(false);
-        mech5.SetActive(false);
     }
 
     public void AddCost()

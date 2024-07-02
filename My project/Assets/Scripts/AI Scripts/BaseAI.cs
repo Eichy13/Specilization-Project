@@ -63,6 +63,50 @@ public class BaseAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //currentHealth = mechHealth + pilotHealth;
+        //currentMaxHealth = currentHealth;
+        //currentMeleeDamage = mechMeleeDamage + pilotMeleeDamage;
+        //currentRangedDamage = mechRangedDamage + pilotRangedDamage;
+        //currentMobility = mechMobility + pilotMobility;
+        //retreatTrigger = false;
+        //currentMode = 0;
+        //currentStrafe = 0;
+        //actionCooldown = Random.Range(2 ,4);
+        //meleeCooldown = Random.Range(2 ,4);
+        //dashCooldown = Random.Range(3, 5); 
+        //dashActive = false;
+        //damageBuff = 0;
+        //defenceBuff = 0;
+        //speedBuff = 0;
+        //healthBarTarget = 1;
+
+        //if (currentMeleeDamage > currentRangedDamage)
+        //{
+        //    pilotPlayStyle = 0;
+        //}
+        //else
+        //{
+        //    pilotPlayStyle = 1;
+        //}
+
+        //actionTimer = 0;
+        //NavSetUp();
+        //UpdateIcons();
+        //if (gameObject.tag == "Team1")
+        //{
+        //    teamNumber = 1;
+        //}
+        //else if (gameObject.tag == "Team2")
+        //{
+        //    teamNumber = 2;
+        //}
+        //GetTarget();
+        //events.AddListener(Hit);
+        //UpdateHealthBar();
+    }
+
+    public void InstantiateStart()
+    {
         currentHealth = mechHealth + pilotHealth;
         currentMaxHealth = currentHealth;
         currentMeleeDamage = mechMeleeDamage + pilotMeleeDamage;
@@ -71,9 +115,9 @@ public class BaseAI : MonoBehaviour
         retreatTrigger = false;
         currentMode = 0;
         currentStrafe = 0;
-        actionCooldown = Random.Range(2 ,4);
-        meleeCooldown = Random.Range(2 ,4);
-        dashCooldown = Random.Range(3, 5); 
+        actionCooldown = Random.Range(2, 4);
+        meleeCooldown = Random.Range(2, 4);
+        dashCooldown = Random.Range(3, 5);
         dashActive = false;
         damageBuff = 0;
         defenceBuff = 0;

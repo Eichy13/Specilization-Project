@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc76c6c4e20cb2478de7b2d4074d242, type: 3}
+  m_Name: Mech10
+  m_EditorClassIdentifier: 
+  mechHealth: 300
+  mechMeleeDamage: 160
+  mechRangedDamage: 280
+  mechMobility: 270
+  mechRange: 3
+  mechCost: 5
+  mechAbility: 0
+  mechName: Unicorn Mech
+  mechDescription: Highly advanced mech that allows the pilots to control it with
+    its though, very scary. Requires the pilot to be gifted with a special power
+    that with humans evolving due to living in space.
+  mechAbilityDescription: 'Ability: Rapid fire
+
+    Rain aoe hellfire at an enemy'
+  mechImage1: {fileID: 21300000, guid: e90999934c31f8a40a809241bcb59258, type: 3}
+  mechImage2: {fileID: 0}

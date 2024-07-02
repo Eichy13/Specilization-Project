@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 116d795e0c874f142bd2a751d4aa99a4, type: 3}
+  m_Name: BaseAbility5
+  m_EditorClassIdentifier: 
+  abilityID: 4
+  abilityDescription: 'Transformation Tactics
+
+    +7 to cost'
+  abilityImage: {fileID: 21300000, guid: a8dfe3ae3169afc4ca33131be4bf87bc, type: 3}

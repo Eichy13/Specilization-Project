@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc76c6c4e20cb2478de7b2d4074d242, type: 3}
+  m_Name: Mech3
+  m_EditorClassIdentifier: 
+  mechHealth: 290
+  mechMeleeDamage: 260
+  mechRangedDamage: 130
+  mechMobility: 170
+  mechRange: 2
+  mechCost: 2
+  mechAbility: 0
+  mechName: Gunster
+  mechDescription: Commonly seen close-ranged combat mech in frontlines of space
+    coperate warfare. Not the best but its decent enough.
+  mechAbilityDescription: 'Ability: Overdive
+
+    Gains a +1 level damage buff'
+  mechImage1: {fileID: 21300000, guid: 73c4b68f7cafc48479fa4d398e0f966e, type: 3}
+  mechImage2: {fileID: 0}

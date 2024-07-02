@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc76c6c4e20cb2478de7b2d4074d242, type: 3}
+  m_Name: Mech7
+  m_EditorClassIdentifier: 
+  mechHealth: 280
+  mechMeleeDamage: 300
+  mechRangedDamage: 10
+  mechMobility: 210
+  mechRange: 1
+  mechCost: 4
+  mechAbility: 0
+  mechName: The Devistator
+  mechDescription: The guy who designed this mech really enjoy MMA fights. So he
+    tried to create one that could replicate that, sadly witht the current tech not
+    really allowing a mech to move as flexible as a human, it still punches really
+    bloody hard.
+  mechAbilityDescription: 'Ability: Serious Series, Killer Move, Killer Uppercut
+
+    Big
+    uppercut to heavily damage and stun for 3 seconds.'
+  mechImage1: {fileID: 21300000, guid: df76ea1fd51ba4b4ba4e6142a8bd67f0, type: 3}
+  mechImage2: {fileID: 0}
