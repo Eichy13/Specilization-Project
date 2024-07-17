@@ -18,10 +18,12 @@ MonoBehaviour:
   mechMobility: 200
   mechRange: 5
   mechCost: 7
-  mechAbility: 0
+  mechAbility: 12
+  mechAbilityCost: 4
   mechName: IDK Mech
   mechDescription: Idk what to write about this mech, it has a gun and it shoots
     good
+  mechAbilityName: Good stuff
   mechAbilityDescription: 'Ability: Good stuff
 
     Gain +2 damage buff'

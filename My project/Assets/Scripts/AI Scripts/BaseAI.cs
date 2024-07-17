@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class BaseAI : MonoBehaviour
 {
@@ -28,14 +30,14 @@ public class BaseAI : MonoBehaviour
     public GameObject currentTarget; //Who to target
 
     //Info for the actual stats of the ai
-    protected float currentHealth;
-    protected float currentMaxHealth;
+    public float currentHealth; //This is prob a bad way to do this but idk
+    public float currentMaxHealth;
     protected float currentMeleeDamage;
     protected float currentRangedDamage;
     protected float currentMobility;
     protected int currentMode; //Mode 0 = chasing/looking for unit, Mode 1 = Found a target and attacks it
     protected int currentStrafe; //Mode 0 = Strafe left, Mode 1 = Strafe right
-    protected bool dashActive; //If the dash is currently off cooldown
+    public bool dashActive; //If the dash is currently off cooldown
     protected float damageBuff; //Goes up to -3 to +3
     protected float defenceBuff; //Goes up to -3 to +3
     protected float speedBuff; //Goes up to -3 to +3
@@ -43,7 +45,6 @@ public class BaseAI : MonoBehaviour
     [SerializeField] protected Image healthBarSprite;
     [SerializeField] protected Image[] damageBuffSprite;
     [SerializeField] protected Image[] defenceBuffSprite;
-    [SerializeField] protected Image[] speedBuffSprite;
     protected int pilotPlayStyle; //Melee or Ranged AI
     protected NavMeshAgent navMeshAgent;
     protected float actionTimer; //Time till next attack
@@ -318,16 +319,19 @@ public class BaseAI : MonoBehaviour
                 break;
             }
         }
+        currentHealth -= (damage * (1.00f + ((-1 * defenceBuff * 10) / 100))); //Prep defence buff
+        Debug.Log("New health: " + currentHealth);
+
+        UpdateHealthBar();
+    }
+
+    public void DamageTurretTaken(float damage)
+    {
 
         currentHealth -= (damage / 10); //Prep defence buff
         Debug.Log("New health: " + currentHealth);
 
         UpdateHealthBar();
-
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject); //Death
-        }
     }
 
     public void Hit() //Event of being hit
@@ -363,6 +367,10 @@ public class BaseAI : MonoBehaviour
                 foreach (GameObject obj in allyObjectsInRange3)
                 {
                     BaseAI temp = obj.GetComponent<BaseAI>();
+                    if (damageBuff == 3)
+                    {
+                        break;
+                    }
                     temp.damageBuff += 1;
                     temp.UpdateIcons();
                 }
@@ -370,8 +378,20 @@ public class BaseAI : MonoBehaviour
                 UpdateIcons();
                 break;
             }
-            case (1): 
+            case (2): //Ability: Overdive, Gains a +1 level damage buff
+                {
+                    if (damageBuff == 3)
+                    {
+                        break;
+                    }
+                    damageBuff += 1;
+                    UpdateIcons();
+                    break;
+            }
+            case (3): 
             {
+                damageBuff += 1;
+                UpdateIcons();
                 break;
             }
             default: 
@@ -425,36 +445,90 @@ public class BaseAI : MonoBehaviour
         {
             icon.enabled = false;
         }
-        foreach (Image icon in speedBuffSprite)
-        {
-            icon.enabled = false;
-        }
 
-        //Dont forget to add it to consider negative buffs 
-        //if (damageBuff != 0)
-        //{
-        //    damageBuffSprite[(int)damageBuff + 3].enabled = true;
-        //}
-        //if (defenceBuff != 0)
-        //{
-        //    defenceBuffSprite[(int)defenceBuff + 3].enabled = true;
-        //}
-        //if (speedBuff != 0)
-        //{
-        //    speedBuffSprite[(int)speedBuff + 3].enabled = true;
-        //}
+        //Dont forget to add it to consider negative buffs
         if (damageBuff != 0)
         {
-            damageBuffSprite[0].enabled = true;
+            switch (damageBuff)
+            {
+                case (1):
+                    {
+                        damageBuffSprite[3].enabled = true;
+                        break;
+                    }
+                case (2):
+                    {
+                        damageBuffSprite[4].enabled = true;
+                        break;
+                    }
+                case (3):
+                    {
+                        damageBuffSprite[5].enabled = true;
+                        break;
+                    }
+                case (-1):
+                    {
+                        damageBuffSprite[2].enabled = true;
+                        break;
+                    }
+                case (-2):
+                    {
+                        damageBuffSprite[1].enabled = true;
+                        break;
+                    }
+
+                case (-3):
+                    {
+                        damageBuffSprite[0].enabled = true;
+                        break;
+                    }
+            }
         }
         if (defenceBuff != 0)
         {
-            defenceBuffSprite[0].enabled = true;
+            switch (defenceBuff)
+            {
+                case (1):
+                    {
+                        defenceBuffSprite[3].enabled = true;
+                        break;
+                    }
+                case (2):
+                    {
+                        defenceBuffSprite[4].enabled = true;
+                        break;
+                    }
+                case (3):
+                    {
+                        defenceBuffSprite[5].enabled = true;
+                        break;
+                    }
+                case (-1):
+                    {
+                        defenceBuffSprite[2].enabled = true;
+                        break;
+                    }
+                case (-2):
+                    {
+                        defenceBuffSprite[1].enabled = true;
+                        break;
+                    }
+
+                case (-3):
+                    {
+                        defenceBuffSprite[0].enabled = true;
+                        break;
+                    }
+            }
         }
-        if (speedBuff != 0)
-        {
-            speedBuffSprite[0].enabled = true;
-        }
+        //if (damageBuff != 0)
+        //{
+        //    damageBuffSprite[0].enabled = true;
+        //}
+        //if (defenceBuff != 0)
+        //{
+        //    defenceBuffSprite[0].enabled = true;
+        //}
     }
 
     void OnDrawGizmosSelected()

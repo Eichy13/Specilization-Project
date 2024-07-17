@@ -18,11 +18,13 @@ MonoBehaviour:
   mechMobility: 170
   mechRange: 4
   mechCost: 3
-  mechAbility: 0
+  mechAbility: 5
+  mechAbilityCost: 4
   mechName: Rocket Mech V999.0
   mechDescription: So ever since rockets were invented, people were really invested
     in them. So some guys decided to stuff as many rockets they could into this mech.
     The versions is how many rockets * 10 there is inside
+  mechAbilityName: Rocket Rocket Rocket
   mechAbilityDescription: 'Ability: Rocket Rocket Rocket
 
     Does area damge around

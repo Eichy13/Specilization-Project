@@ -13,10 +13,13 @@ public class SelectedMechStats : ScriptableObject
     public int mechRange;
     public int mechCost;
     public int mechAbility;
+    public int mechAbilityCost; //Add the cost to the description text
 
     public string mechName;
     [TextArea(5, 10)]
     public string mechDescription;
+    [TextArea(5, 10)]
+    public string mechAbilityName;
     [TextArea(5, 10)]
     public string mechAbilityDescription;
     public Sprite mechImage1;

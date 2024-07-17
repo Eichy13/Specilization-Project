@@ -16,12 +16,14 @@ MonoBehaviour:
   mechMeleeDamage: 230
   mechRangedDamage: 50
   mechMobility: 190
-  mechRange: 1
+  mechRange: 2
   mechCost: 3
-  mechAbility: 0
+  mechAbility: 4
+  mechAbilityCost: 0
   mechName: Stabby Mc Stab
   mechDescription: A really fast mech with a spear. Stabs mechs to death. When one
     is seen many more is to come. Usually the frontline of any army engagement.
+  mechAbilityName: Unending tide!
   mechAbilityDescription: 'Ability: Unending tide!
 
     Upon death, gain +4 cost'

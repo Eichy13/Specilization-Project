@@ -240,7 +240,7 @@ public class StartMenu : MonoBehaviour
                 loadout.selectedMechStats1 = listOfMechStats[selectedMech];
                 if (loadout.selectedPilotStats1 != null)
                 {
-                    LoadoutUpdate();
+                    LoadoutUpdate1();
                 }
                 break;
 
@@ -248,7 +248,7 @@ public class StartMenu : MonoBehaviour
                 loadout.selectedMechStats2 = listOfMechStats[selectedMech];
                 if (loadout.selectedPilotStats2 != null)
                 {
-                    LoadoutUpdate();
+                    LoadoutUpdate1();
                 }
                 break;
 
@@ -256,7 +256,7 @@ public class StartMenu : MonoBehaviour
                 loadout.selectedMechStats3 = listOfMechStats[selectedMech];
                 if (loadout.selectedPilotStats3 != null)
                 {
-                    LoadoutUpdate();
+                    LoadoutUpdate1();
                 }
                 break;
 
@@ -264,7 +264,7 @@ public class StartMenu : MonoBehaviour
                 loadout.selectedMechStats4 = listOfMechStats[selectedMech];
                 if (loadout.selectedPilotStats4 != null)
                 {
-                    LoadoutUpdate();
+                    LoadoutUpdate1();
                 }
                 break;
 
@@ -272,7 +272,7 @@ public class StartMenu : MonoBehaviour
                 loadout.selectedMechStats5 = listOfMechStats[selectedMech];
                 if (loadout.selectedPilotStats5 != null)
                 {
-                    LoadoutUpdate();
+                    LoadoutUpdate1();
                 }
                 break;
         }
@@ -299,7 +299,7 @@ public class StartMenu : MonoBehaviour
                 loadout.selectedPilotStats1 = listOfPilotStats[selectedPilot];
                 if (loadout.selectedMechStats1 != null)
                 {
-                    LoadoutUpdate();
+                    LoadoutUpdate2();
                 }
                 break;
 
@@ -307,7 +307,7 @@ public class StartMenu : MonoBehaviour
                 loadout.selectedPilotStats2 = listOfPilotStats[selectedPilot];
                 if (loadout.selectedMechStats2 != null)
                 {
-                    LoadoutUpdate();
+                    LoadoutUpdate2();
                 }
                 break;
 
@@ -315,7 +315,7 @@ public class StartMenu : MonoBehaviour
                 loadout.selectedPilotStats3 = listOfPilotStats[selectedPilot];
                 if (loadout.selectedMechStats3 != null)
                 {
-                    LoadoutUpdate();
+                    LoadoutUpdate2();
                 }
                 break;
 
@@ -323,7 +323,7 @@ public class StartMenu : MonoBehaviour
                 loadout.selectedPilotStats4 = listOfPilotStats[selectedPilot];
                 if (loadout.selectedMechStats4 != null)
                 {
-                    LoadoutUpdate();
+                    LoadoutUpdate2();
                 }
                 break;
 
@@ -331,7 +331,7 @@ public class StartMenu : MonoBehaviour
                 loadout.selectedPilotStats5 = listOfPilotStats[selectedPilot];
                 if (loadout.selectedMechStats5 != null)
                 {
-                    LoadoutUpdate();
+                    LoadoutUpdate2();
                 }
                 break;
         }
@@ -343,9 +343,60 @@ public class StartMenu : MonoBehaviour
         Reset();
     }
 
-    private void LoadoutUpdate()
+    private void LoadoutUpdate1()
     {
         switch (currentMech)
+        {
+            case 0:
+                loadoutMechHealth[currentMech].fillAmount = (loadout.selectedPilotStats1.pilotHealth + loadout.selectedMechStats1.mechHealth) / 2000f;
+                loadoutMechMeleeDamage[currentMech].fillAmount = (loadout.selectedPilotStats1.pilotMeleeDamage + loadout.selectedMechStats1.mechMeleeDamage) / 2000f;
+                loadoutMechRangedDamage[currentMech].fillAmount = (loadout.selectedPilotStats1.pilotRangedDamage + loadout.selectedMechStats1.mechRangedDamage) / 2000f;
+                loadoutMechMobility[currentMech].fillAmount = (loadout.selectedPilotStats1.pilotMobility + loadout.selectedMechStats1.mechMobility) / 2000f;
+                loadoutMechCost[currentMech].fillAmount = (loadout.selectedPilotStats1.pilotCost + loadout.selectedMechStats1.mechCost) / 20f;
+                break;
+
+            case 1:
+                loadoutMechHealth[currentMech].fillAmount = (loadout.selectedPilotStats2.pilotHealth + loadout.selectedMechStats2.mechHealth) / 2000f;
+                loadoutMechMeleeDamage[currentMech].fillAmount = (loadout.selectedPilotStats2.pilotMeleeDamage + loadout.selectedMechStats2.mechMeleeDamage) / 2000f;
+                loadoutMechRangedDamage[currentMech].fillAmount = (loadout.selectedPilotStats2.pilotRangedDamage + loadout.selectedMechStats2.mechRangedDamage) / 2000f;
+                loadoutMechMobility[currentMech].fillAmount = (loadout.selectedPilotStats2.pilotMobility + loadout.selectedMechStats2.mechMobility) / 2000f;
+                loadoutMechCost[currentMech].fillAmount = (loadout.selectedPilotStats2.pilotCost + loadout.selectedMechStats2.mechCost) / 20f;
+                break;
+
+            case 2:
+                loadoutMechHealth[currentMech].fillAmount = (loadout.selectedPilotStats3.pilotHealth + loadout.selectedMechStats3.mechHealth) / 2000f;
+                loadoutMechMeleeDamage[currentMech].fillAmount = (loadout.selectedPilotStats3.pilotMeleeDamage + loadout.selectedMechStats3.mechMeleeDamage) / 2000f;
+                loadoutMechRangedDamage[currentMech].fillAmount = (loadout.selectedPilotStats3.pilotRangedDamage + loadout.selectedMechStats3.mechRangedDamage) / 2000f;
+                loadoutMechMobility[currentMech].fillAmount = (loadout.selectedPilotStats3.pilotMobility + loadout.selectedMechStats3.mechMobility) / 2000f;
+                loadoutMechCost[currentMech].fillAmount = (loadout.selectedPilotStats3.pilotCost + loadout.selectedMechStats3.mechCost) / 20f;
+                break;
+
+            case 3:
+                loadoutMechHealth[currentMech].fillAmount = (loadout.selectedPilotStats4.pilotHealth + loadout.selectedMechStats4.mechHealth) / 2000f;
+                loadoutMechMeleeDamage[currentMech].fillAmount = (loadout.selectedPilotStats4.pilotMeleeDamage + loadout.selectedMechStats4.mechMeleeDamage) / 2000f;
+                loadoutMechRangedDamage[currentMech].fillAmount = (loadout.selectedPilotStats4.pilotRangedDamage + loadout.selectedMechStats4.mechRangedDamage) / 2000f;
+                loadoutMechMobility[currentMech].fillAmount = (loadout.selectedPilotStats4.pilotMobility + loadout.selectedMechStats4.mechMobility) / 2000f;
+                loadoutMechCost[currentMech].fillAmount = (loadout.selectedPilotStats4.pilotCost + loadout.selectedMechStats4.mechCost) / 20f;
+                break;
+
+            case 4:
+                loadoutMechHealth[currentMech].fillAmount = (loadout.selectedPilotStats5.pilotHealth + loadout.selectedMechStats5.mechHealth) / 2000f;
+                loadoutMechMeleeDamage[currentMech].fillAmount = (loadout.selectedPilotStats5.pilotMeleeDamage + loadout.selectedMechStats5.mechMeleeDamage) / 2000f;
+                loadoutMechRangedDamage[currentMech].fillAmount = (loadout.selectedPilotStats5.pilotRangedDamage + loadout.selectedMechStats5.mechRangedDamage) / 2000f;
+                loadoutMechMobility[currentMech].fillAmount = (loadout.selectedPilotStats5.pilotMobility + loadout.selectedMechStats5.mechMobility) / 2000f;
+                loadoutMechCost[currentMech].fillAmount = (loadout.selectedPilotStats5.pilotCost + loadout.selectedMechStats5.mechCost) / 20f;
+                break;
+        }
+
+        if (loadout.CheckIfFull())
+        {
+            sortieButton.SetActive(true);
+        }
+    }
+
+    private void LoadoutUpdate2()
+    {
+        switch (currentPilot)
         {
             case 0:
                 loadoutMechHealth[currentMech].fillAmount = (loadout.selectedPilotStats1.pilotHealth + loadout.selectedMechStats1.mechHealth) / 2000f;

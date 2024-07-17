@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static BaseAI;
 
 public class BaseDefenceAI : MonoBehaviour
 {
     public float currentMaxHealth;
-    private float health;
+    public float health;
     public int damage;
     public int baseType;
     public int teamNumber;
     private float actionTimer;
     [SerializeField] protected Image healthBarSprite;
     protected float healthBarTarget;
+
+    [SerializeField] protected Image healthBar2Sprite;
+    protected float healthBar2Target;
 
     public GameObject currentTarget;
    
@@ -35,7 +39,9 @@ public class BaseDefenceAI : MonoBehaviour
 
     void Update()
     {
+        actionTimer += Time.deltaTime;
         healthBarSprite.fillAmount = Mathf.MoveTowards(healthBarSprite.fillAmount, healthBarTarget, 3 * Time.deltaTime);
+        healthBar2Sprite.fillAmount = Mathf.MoveTowards(healthBar2Sprite.fillAmount, healthBarTarget, 3 * Time.deltaTime);
 
         if (currentTarget == null)
         {
@@ -90,7 +96,37 @@ public class BaseDefenceAI : MonoBehaviour
 
     public void Attack() //Shoot the target
     {
+        GameObject projectile = ObjectPool.SharedInstance.GetPooledObject();
+        if (projectile != null)
+        {
+            projectile.transform.position = transform.position;
+            projectile.transform.rotation = transform.rotation;
+            projectile.SetActive(true);
+            if (gameObject.tag == "Team1")
+            {
+                projectile.tag = "Team1";
+            }
+            else if (gameObject.tag == "Team2")
+            {
+                projectile.tag = "Team2";
+            }
 
+            LazerProjectile lazerProjectile = projectile.GetComponent<LazerProjectile>();
+            StartCoroutine(lazerProjectile.Shoot(currentTarget.transform.position));
+
+            BaseAI currentTargetAI = currentTarget.GetComponent<BaseAI>();
+            if (currentTargetAI != null) //Shooting at A
+            {
+                if (currentTargetAI.dashActive == true)
+                {
+                    StartCoroutine(currentTargetAI.Dash(Random.Range(2, 4))); //Enemy will dodge the projectile if they have dash
+                }
+                else
+                {
+                    currentTargetAI.DamageTurretTaken(damage);
+                }
+            }
+        }
     }
 
     public void DamageTaken(float damage, BaseAI.PilotAIType attackingPilotType)
@@ -128,5 +164,6 @@ public class BaseDefenceAI : MonoBehaviour
     {
         Debug.Log("Update HP");
         healthBarTarget = health / currentMaxHealth;
+        healthBar2Target = health / currentMaxHealth;
     }
 }

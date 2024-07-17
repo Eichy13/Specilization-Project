@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedPilotStats1: {fileID: 11400000, guid: 500b0e63c048ee841a7b6c6d4f49f1ec, type: 2}
   selectedPilotStats2: {fileID: 11400000, guid: a0ffecb25cfaa8a4cb4145eeb75a8881, type: 2}
-  selectedPilotStats3: {fileID: 11400000, guid: b3d4e12673bae1f449bf2e5c05b9474b, type: 2}
+  selectedPilotStats3: {fileID: 11400000, guid: dd4bd5b6c7455354995f64724d0cd6e7, type: 2}
   selectedPilotStats4: {fileID: 11400000, guid: 5ae35258240482f4c81bf0c7074e5ae3, type: 2}
-  selectedPilotStats5: {fileID: 11400000, guid: 500b0e63c048ee841a7b6c6d4f49f1ec, type: 2}
-  selectedMechStats1: {fileID: 11400000, guid: b0440c15aec14df4a966733e5913aab6, type: 2}
-  selectedMechStats2: {fileID: 11400000, guid: 81e99c57fa04bb348b438c54d6510784, type: 2}
-  selectedMechStats3: {fileID: 11400000, guid: 6c50faa7d20923d4abe263d0dc151b3c, type: 2}
-  selectedMechStats4: {fileID: 11400000, guid: d3a9cf273ace4ba43803023e47ec4e33, type: 2}
-  selectedMechStats5: {fileID: 11400000, guid: d6b87b44c9e70d447bc2b7667e8beb9c, type: 2}
-  selectedBaseAbility1: {fileID: 0}
-  selectedBaseAbility2: {fileID: 0}
+  selectedPilotStats5: {fileID: 11400000, guid: 60039fcabd8f6584e94cd2606c3a5b38, type: 2}
+  selectedMechStats1: {fileID: 11400000, guid: 81e99c57fa04bb348b438c54d6510784, type: 2}
+  selectedMechStats2: {fileID: 11400000, guid: 6c50faa7d20923d4abe263d0dc151b3c, type: 2}
+  selectedMechStats3: {fileID: 11400000, guid: d3a9cf273ace4ba43803023e47ec4e33, type: 2}
+  selectedMechStats4: {fileID: 11400000, guid: e2cdfd86a60c21640b24834221227ba9, type: 2}
+  selectedMechStats5: {fileID: 11400000, guid: 5f2efb77e92cbdb489a31f6dbc8495bc, type: 2}
+  selectedBaseAbility1: {fileID: 11400000, guid: 091a3e37596f6a844873a67d231391de, type: 2}
+  selectedBaseAbility2: {fileID: 11400000, guid: 48c181b2840a2f34cbdafb224b6cfd4a, type: 2}
   sentFromStart: 1

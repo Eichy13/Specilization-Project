@@ -18,11 +18,13 @@ MonoBehaviour:
   mechMobility: 300
   mechRange: 5
   mechCost: 8
-  mechAbility: 0
+  mechAbility: 14
+  mechAbilityCost: 8
   mechName: Rising Freedom Mech
   mechDescription: A really cool mech that scares any combat personell that sees
     it. Contains weapons system that fire at hundreds of targets at once. Dear God,
     its coming
+  mechAbilityName: Weapons Systems GO!
   mechAbilityDescription: 'Ability:  Weapons Systems GO!
 
     Launches a powerful

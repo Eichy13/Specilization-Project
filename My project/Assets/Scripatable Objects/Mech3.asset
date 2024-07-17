@@ -18,10 +18,12 @@ MonoBehaviour:
   mechMobility: 170
   mechRange: 2
   mechCost: 2
-  mechAbility: 0
+  mechAbility: 2
+  mechAbilityCost: 3
   mechName: Gunster
   mechDescription: Commonly seen close-ranged combat mech in frontlines of space
     coperate warfare. Not the best but its decent enough.
+  mechAbilityName: Overdive
   mechAbilityDescription: 'Ability: Overdive
 
     Gains a +1 level damage buff'

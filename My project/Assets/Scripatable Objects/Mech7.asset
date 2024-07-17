@@ -16,14 +16,16 @@ MonoBehaviour:
   mechMeleeDamage: 300
   mechRangedDamage: 10
   mechMobility: 210
-  mechRange: 1
+  mechRange: 2
   mechCost: 4
-  mechAbility: 0
+  mechAbility: 6
+  mechAbilityCost: 3
   mechName: The Devistator
   mechDescription: The guy who designed this mech really enjoy MMA fights. So he
     tried to create one that could replicate that, sadly witht the current tech not
     really allowing a mech to move as flexible as a human, it still punches really
     bloody hard.
+  mechAbilityName: Serious Series, Killer Move, Killer Uppercut
   mechAbilityDescription: 'Ability: Serious Series, Killer Move, Killer Uppercut
 
     Big

@@ -18,10 +18,12 @@ MonoBehaviour:
   mechMobility: 200
   mechRange: 3
   mechCost: 4
-  mechAbility: 0
+  mechAbility: 7
+  mechAbilityCost: 5
   mechName: Wateroo
   mechDescription: Underwater mech that can also be in space. Very cool! Has a cool
     water cannon that is fun witht he kids
+  mechAbilityName: Fun for the whole family!
   mechAbilityDescription: 'Ability: Fun for the whole family!
 
     Shoots water at

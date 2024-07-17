@@ -16,12 +16,14 @@ MonoBehaviour:
   mechMeleeDamage: 170
   mechRangedDamage: 140
   mechMobility: 100
-  mechRange: 1
+  mechRange: 3
   mechCost: 1
   mechAbility: 0
+  mechAbilityCost: 3
   mechName: Altron Mech
   mechDescription: Commonly seen mech equipped with a lazer sword. Mainly used as
     a learning tool for new pilots to learn how to use a mech.
+  mechAbilityName: Big Swing
   mechAbilityDescription: 'Ability: Big Swing
 
     Slashes the sword at a target,

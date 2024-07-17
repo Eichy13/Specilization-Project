@@ -18,10 +18,12 @@ MonoBehaviour:
   mechMobility: 270
   mechRange: 4
   mechCost: 6
-  mechAbility: 0
+  mechAbility: 10
+  mechAbilityCost: 2
   mechName: Gun Mech V1092.0
   mechDescription: The latest version of the Gun Mech! Now shoots bigger and better
     then the Gun Mech V1091! Get yours today!
+  mechAbilityName: This is new!
   mechAbilityDescription: 'Ability: This is new!
 
     EMP around the mech and givesa

@@ -16,12 +16,14 @@ MonoBehaviour:
   mechMeleeDamage: 350
   mechRangedDamage: 100
   mechMobility: 200
-  mechRange: 1
+  mechRange: 2
   mechCost: 6
-  mechAbility: 0
+  mechAbility: 11
+  mechAbilityCost: 6
   mechName: Purple Mech
   mechDescription: 'So somehow people managed to manpulate a black hole or something
     and gave a mech the punch that is as strong as a black hole. Don''t go near it. '
+  mechAbilityName: Shadow Punch
   mechAbilityDescription: 'Ability: Shadow Punch
 
     A devasting punch that stuns

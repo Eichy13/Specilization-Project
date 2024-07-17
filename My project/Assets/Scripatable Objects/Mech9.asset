@@ -18,10 +18,12 @@ MonoBehaviour:
   mechMobility: 250
   mechRange: 4
   mechCost: 5
-  mechAbility: 0
+  mechAbility: 8
+  mechAbilityCost: 3
   mechName: Strike Mech
   mechDescription: A strong and fast mech used by veteran pilots. Most favouried
     by a funny man who dosen't like to fight but still fights cuz of his friends.
+  mechAbilityName: Kira Yamato, Strike Gundam (Wait wrong series)
   mechAbilityDescription: 'Ability: Kira Yamato, Strike Gundam (Wait wrong series)
 
     Become

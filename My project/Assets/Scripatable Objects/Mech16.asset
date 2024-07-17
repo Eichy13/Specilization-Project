@@ -16,12 +16,14 @@ MonoBehaviour:
   mechMeleeDamage: 1000
   mechRangedDamage: 500
   mechMobility: 100
-  mechRange: 1
+  mechRange: 2
   mechCost: 8
-  mechAbility: 0
+  mechAbility: 15
+  mechAbilityCost: 10
   mechName: Big Mech Sword
   mechDescription: 'A mech, With a really really big sword. Like big enough to cut
     though big stuff level. '
+  mechAbilityName: Big Swing
   mechAbilityDescription: 'Ability:  Big Swing
 
     Instantly kill the target (Not

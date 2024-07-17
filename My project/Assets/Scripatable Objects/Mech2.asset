@@ -18,11 +18,13 @@ MonoBehaviour:
   mechMobility: 130
   mechRange: 5
   mechCost: 1
-  mechAbility: 0
+  mechAbility: 1
+  mechAbilityCost: 2
   mechName: GunTank
   mechDescription: An old war tank that was reuporpsed for space combat. Pretty crappy
     compared to more mordern devices but it gets the job done. Has nearly 0 close
     range capabilities so if it someone walks into sneezing range of its pretty bad.
+  mechAbilityName: Concentrated fire
   mechAbilityDescription: 'Ability: Concentrated fire
 
     Rapidly shoots a quick

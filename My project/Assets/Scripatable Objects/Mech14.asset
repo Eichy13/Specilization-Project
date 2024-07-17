@@ -18,11 +18,13 @@ MonoBehaviour:
   mechMobility: 300
   mechRange: 5
   mechCost: 7
-  mechAbility: 0
+  mechAbility: 13
+  mechAbilityCost: 4
   mechName: Classic Mech
   mechDescription: A classic mech that managed to stand against the sands of time.
     Still really good in the modern era with its equpment being upgraded as time
     goes by.
+  mechAbilityName: Veteran mech
   mechAbilityDescription: 'Ability: Veteran mech
 
     Gain +1 to all buffs (Damage,

@@ -18,10 +18,12 @@ MonoBehaviour:
   mechMobility: 150
   mechRange: 4
   mechCost: 2
-  mechAbility: 0
+  mechAbility: 3
+  mechAbilityCost: 4
   mechName: GunCannon
   mechDescription: A pretty basic mech with a shield and a gun, it also flies! What
     else would you need? Most seen in basic army mech regiments.
+  mechAbilityName: We are one!
   mechAbilityDescription: 'Ability: We are one!
 
     All friendly mechs in a small

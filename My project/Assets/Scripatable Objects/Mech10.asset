@@ -18,11 +18,13 @@ MonoBehaviour:
   mechMobility: 270
   mechRange: 3
   mechCost: 5
-  mechAbility: 0
+  mechAbility: 9
+  mechAbilityCost: 4
   mechName: Unicorn Mech
   mechDescription: Highly advanced mech that allows the pilots to control it with
     its though, very scary. Requires the pilot to be gifted with a special power
     that with humans evolving due to living in space.
+  mechAbilityName: Rapid fire
   mechAbilityDescription: 'Ability: Rapid fire
 
     Rain aoe hellfire at an enemy'
