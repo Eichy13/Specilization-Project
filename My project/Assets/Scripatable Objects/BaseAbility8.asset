@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: BaseAbility8
   m_EditorClassIdentifier: 
   abilityID: 7
+  abilityName: Reverse Blow
   abilityDescription: "Reverse Blow \nRemoves all positives buffs on enemy mechs"
   abilityImage: {fileID: 21300000, guid: 9a99ed1faa15af74d9380aa9c0bec9da, type: 3}

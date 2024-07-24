@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: BaseAbility6
   m_EditorClassIdentifier: 
   abilityID: 5
+  abilityName: 'Defense Line on High Alert '
   abilityDescription: "Defense Line on High Alert \n+2 armor buff to all mechs"
   abilityImage: {fileID: 21300000, guid: d946534b9863bea4b84b315912264f53, type: 3}

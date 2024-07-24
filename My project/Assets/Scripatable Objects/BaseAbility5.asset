@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BaseAbility5
   m_EditorClassIdentifier: 
   abilityID: 4
+  abilityName: Transformation Tactics
   abilityDescription: 'Transformation Tactics
 
     +7 to cost'

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BaseAbility2
   m_EditorClassIdentifier: 
   abilityID: 1
+  abilityName: 'Temporary Defense  '
   abilityDescription: "Temporary Defense  \nAll allied Mechs and Base Buildings gains
     +1 armor buff"
   abilityImage: {fileID: 21300000, guid: 0716595d65e868c4e84e952a41356946, type: 3}

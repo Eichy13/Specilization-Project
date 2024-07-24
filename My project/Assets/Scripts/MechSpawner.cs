@@ -8,11 +8,18 @@ public class MechSpawner : MonoBehaviour
     private static MechSpawner instance;
 
     [SerializeField] private SelectedLoadout loadout;
-    [SerializeField] private GameObject fighterMechPrefab;
-    [SerializeField] private GameObject rusherMechPrefab;
-    [SerializeField] private GameObject defenderMechPrefab;
+    [SerializeField] private GameObject playerFighterMechPrefab;
+    [SerializeField] private GameObject playerRusherMechPrefab;
+    [SerializeField] private GameObject playerDefenderMechPrefab;
+
+    [SerializeField] private GameObject enemyFighterMechPrefab;
+    [SerializeField] private GameObject enemyRusherMechPrefab;
+    [SerializeField] private GameObject enemyDefenderMechPrefab;
+
+    protected List<GameObject> enemyObjects = new List<GameObject>();
 
     [SerializeField] private CinemachineVirtualCamera[] mechCameras;
+    [SerializeField] private Transform[] spawnPoints;
 
     public GameObject mech1;
     public GameObject mech2;
@@ -70,65 +77,65 @@ public class MechSpawner : MonoBehaviour
             switch (loadout.selectedPilotStats1.pilotType)
             {
                 case 0:
-                    mech1 = Instantiate(fighterMechPrefab);
+                    mech1 = Instantiate(playerFighterMechPrefab);
                     break;
                 case 1:
-                    mech1 = Instantiate(rusherMechPrefab);
+                    mech1 = Instantiate(playerRusherMechPrefab);
                     break;
                 case 2:
-                    mech1 = Instantiate(defenderMechPrefab);
+                    mech1 = Instantiate(playerDefenderMechPrefab);
                     break;
             }
 
             switch (loadout.selectedPilotStats2.pilotType)
             {
                 case 0:
-                    mech2 = Instantiate(fighterMechPrefab);
+                    mech2 = Instantiate(playerFighterMechPrefab);
                     break;
                 case 1:
-                    mech2 = Instantiate(rusherMechPrefab);
+                    mech2 = Instantiate(playerRusherMechPrefab);
                     break;
                 case 2:
-                    mech2 = Instantiate(defenderMechPrefab);
+                    mech2 = Instantiate(playerDefenderMechPrefab);
                     break;
             }
 
             switch (loadout.selectedPilotStats3.pilotType)
             {
                 case 0:
-                    mech3 = Instantiate(fighterMechPrefab);
+                    mech3 = Instantiate(playerFighterMechPrefab);
                     break;
                 case 1:
-                    mech3 = Instantiate(rusherMechPrefab);
+                    mech3 = Instantiate(playerRusherMechPrefab);
                     break;
                 case 2:
-                    mech3 = Instantiate(defenderMechPrefab);
+                    mech3 = Instantiate(playerDefenderMechPrefab);
                     break;
             }
 
             switch (loadout.selectedPilotStats4.pilotType)
             {
                 case 0:
-                    mech4 = Instantiate(fighterMechPrefab);
+                    mech4 = Instantiate(playerFighterMechPrefab);
                     break;
                 case 1:
-                    mech4 = Instantiate(rusherMechPrefab);
+                    mech4 = Instantiate(playerRusherMechPrefab);
                     break;
                 case 2:
-                    mech4 = Instantiate(defenderMechPrefab);
+                    mech4 = Instantiate(playerDefenderMechPrefab);
                     break;
             }
 
             switch (loadout.selectedPilotStats5.pilotType)
             {
                 case 0:
-                    mech5 = Instantiate(fighterMechPrefab);
+                    mech5 = Instantiate(playerFighterMechPrefab);
                     break;
                 case 1:
-                    mech5 = Instantiate(rusherMechPrefab);
+                    mech5 = Instantiate(playerRusherMechPrefab);
                     break;
                 case 2:
-                    mech5 = Instantiate(defenderMechPrefab);
+                    mech5 = Instantiate(playerDefenderMechPrefab);
                     break;
             }
 
@@ -233,13 +240,13 @@ public class MechSpawner : MonoBehaviour
         switch (loadout.selectedPilotStats1.pilotType)
         {
             case 0:
-                mech1 = Instantiate(fighterMechPrefab);
+                mech1 = Instantiate(playerFighterMechPrefab);
                 break;
             case 1:
-                mech1 = Instantiate(rusherMechPrefab);
+                mech1 = Instantiate(playerRusherMechPrefab);
                 break;
             case 2:
-                mech1 = Instantiate(defenderMechPrefab);
+                mech1 = Instantiate(playerDefenderMechPrefab);
                 break;
         }
         BaseAI temp;
@@ -268,13 +275,13 @@ public class MechSpawner : MonoBehaviour
         switch (loadout.selectedPilotStats2.pilotType)
         {
             case 0:
-                mech2 = Instantiate(fighterMechPrefab);
+                mech2 = Instantiate(playerFighterMechPrefab);
                 break;
             case 1:
-                mech2 = Instantiate(rusherMechPrefab);
+                mech2 = Instantiate(playerRusherMechPrefab);
                 break;
             case 2:
-                mech2 = Instantiate(defenderMechPrefab);
+                mech2 = Instantiate(playerDefenderMechPrefab);
                 break;
         }
         BaseAI temp;
@@ -303,13 +310,13 @@ public class MechSpawner : MonoBehaviour
         switch (loadout.selectedPilotStats3.pilotType)
         {
             case 0:
-                mech3 = Instantiate(fighterMechPrefab);
+                mech3 = Instantiate(playerFighterMechPrefab);
                 break;
             case 1:
-                mech3 = Instantiate(rusherMechPrefab);
+                mech3 = Instantiate(playerRusherMechPrefab);
                 break;
             case 2:
-                mech3 = Instantiate(defenderMechPrefab);
+                mech3 = Instantiate(playerDefenderMechPrefab);
                 break;
         }
         BaseAI temp;
@@ -338,13 +345,13 @@ public class MechSpawner : MonoBehaviour
         switch (loadout.selectedPilotStats4.pilotType)
         {
             case 0:
-                mech4 = Instantiate(fighterMechPrefab);
+                mech4 = Instantiate(playerFighterMechPrefab);
                 break;
             case 1:
-                mech4 = Instantiate(rusherMechPrefab);
+                mech4 = Instantiate(playerRusherMechPrefab);
                 break;
             case 2:
-                mech4 = Instantiate(defenderMechPrefab);
+                mech4 = Instantiate(playerDefenderMechPrefab);
                 break;
         }
         BaseAI temp;
@@ -373,13 +380,13 @@ public class MechSpawner : MonoBehaviour
         switch (loadout.selectedPilotStats5.pilotType)
         {
             case 0:
-                mech5 = Instantiate(fighterMechPrefab);
+                mech5 = Instantiate(playerFighterMechPrefab);
                 break;
             case 1:
-                mech5 = Instantiate(rusherMechPrefab);
+                mech5 = Instantiate(playerRusherMechPrefab);
                 break;
             case 2:
-                mech5 = Instantiate(defenderMechPrefab);
+                mech5 = Instantiate(playerDefenderMechPrefab);
                 break;
         }
         BaseAI temp;
@@ -401,5 +408,43 @@ public class MechSpawner : MonoBehaviour
 
         mech5.SetActive(false);
         mechCameras[4].Follow = mech5.transform;
+    }
+
+    public void SpawnEnemyAttackWave(float multiplier)
+    {
+        for (int i = 0; i < 2 + multiplier; i++)
+        {
+            GameObject enemy;
+            int rand = Random.Range(0, 4);
+            switch (rand)
+            {
+                case 0:
+                    enemy = Instantiate(enemyFighterMechPrefab); 
+                    break;
+                case 1:
+                    enemy = Instantiate(enemyRusherMechPrefab);
+                    break;
+                case 2:
+                    enemy = Instantiate(enemyDefenderMechPrefab);
+                    break;
+                default: 
+                    enemy = Instantiate(enemyFighterMechPrefab);
+                    break;
+            }
+
+            BaseAI temp;
+            temp = enemy.GetComponent<BaseAI>();
+            temp.mechHealth = Random.Range(200, 800);
+            temp.mechMeleeDamage = Random.Range(200, 800);
+            temp.mechRangedDamage = Random.Range(200, 800);
+            temp.mechRangedRange = Random.Range(2, 5);
+            temp.mechMobility = Random.Range(100, 300);
+            temp.pilotHealth = Random.Range(200, 800);
+            temp.pilotMeleeDamage = Random.Range(200, 800);
+            temp.pilotRangedDamage = Random.Range(200, 800);
+            temp.pilotMobility = Random.Range(100, 300);
+            enemy.transform.position = spawnPoints[Random.Range(0, 16)].position;
+            temp.InstantiateStart();
+        }
     }
 }

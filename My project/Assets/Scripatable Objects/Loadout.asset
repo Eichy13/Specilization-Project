@@ -23,5 +23,5 @@ MonoBehaviour:
   selectedMechStats4: {fileID: 11400000, guid: e2cdfd86a60c21640b24834221227ba9, type: 2}
   selectedMechStats5: {fileID: 11400000, guid: 5f2efb77e92cbdb489a31f6dbc8495bc, type: 2}
   selectedBaseAbility1: {fileID: 11400000, guid: 091a3e37596f6a844873a67d231391de, type: 2}
-  selectedBaseAbility2: {fileID: 11400000, guid: 48c181b2840a2f34cbdafb224b6cfd4a, type: 2}
+  selectedBaseAbility2: {fileID: 11400000, guid: 8377473395127b7459aa876caea8b939, type: 2}
   sentFromStart: 1

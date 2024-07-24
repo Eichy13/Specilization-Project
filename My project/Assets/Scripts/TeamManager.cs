@@ -10,6 +10,7 @@ public class TeamManager : MonoBehaviour
 { 
     private int cost;
     private float timer;
+    private int abilityID; //The ability that needs to be done
     [SerializeField] private CinemachineVirtualCamera defaultCamera;
     [SerializeField] private CinemachineVirtualCamera[] mechCameras;
     [SerializeField] private SelectedLoadout loadout;
@@ -66,6 +67,14 @@ public class TeamManager : MonoBehaviour
     [SerializeField] private TMP_Text abilityName;
     [SerializeField] private TMP_Text abilityDescription;
 
+    [SerializeField] private Image baseAbilityNotificationImage;
+    [SerializeField] private TMP_Text baseAbilityName;
+    [SerializeField] private TMP_Text baseAbilityDescription;
+    [SerializeField] private GameObject baseAbilityButtonBG1;
+    [SerializeField] private GameObject baseAbilityButtonBG2;
+    [SerializeField] private Image baseAbilityImage1;
+    [SerializeField] private Image baseAbilityImage2;
+
     [SerializeField] private TMP_Text deathName;
 
     // Start is called before the first frame update
@@ -83,6 +92,10 @@ public class TeamManager : MonoBehaviour
         mech3CostText.text = "Cost :" + mech3Cost;
         mech4CostText.text = "Cost :" + mech4Cost;
         mech5CostText.text = "Cost :" + mech5Cost;
+
+        //Load the base ability images
+        baseAbilityImage1.sprite = loadout.selectedBaseAbility1.abilityImage;
+        baseAbilityImage2.sprite = loadout.selectedBaseAbility2.abilityImage;
 
         cost = 0;
     }
@@ -549,6 +562,8 @@ public class TeamManager : MonoBehaviour
         mech5Active = true;
         mech5AbilityButton.SetActive(true);
 
+        StartCoroutine(SpawnDelay(mechSpawner.mech5, 2f));
+
         GameManager.Instance.BlackBGClose();
         GameManager.Instance.MapClose();
         GameManager.Instance.SpawnMechFreeze(2f);
@@ -588,5 +603,196 @@ public class TeamManager : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         mech.SetActive(true);
+    }
+
+    public void BaseAbilityButton(int button)
+    {
+        if (button == 0) 
+        {
+            //Inset loadout info into the image
+            baseAbilityNotificationImage.sprite = loadout.selectedBaseAbility1.abilityImage;
+            baseAbilityName.text = loadout.selectedBaseAbility1.abilityName;
+            baseAbilityDescription.text = loadout.selectedBaseAbility1.abilityDescription;
+            abilityID = loadout.selectedBaseAbility1.abilityID;
+            baseAbilityButtonBG1.SetActive(true);
+        }
+        else if (button == 1) 
+        {
+            baseAbilityNotificationImage.sprite = loadout.selectedBaseAbility2.abilityImage;
+            baseAbilityName.text = loadout.selectedBaseAbility2.abilityName;
+            baseAbilityDescription.text = loadout.selectedBaseAbility2.abilityDescription;
+            abilityID = loadout.selectedBaseAbility2.abilityID;
+            baseAbilityButtonBG2.SetActive(true);
+        }
+        GameManager.Instance.BaseAbility(4f);
+
+        BaseAbility();
+    }
+
+    private void BaseAbility()
+    {
+        //Actuially code the ability
+        switch (abilityID)
+        {
+            case (0): //All allied mechs +1 damage buff level and -1 armor buff level 
+                {
+                    if (mech1Active)
+                    {
+                        BaseAI temp;
+                        temp = mechSpawner.mech1.GetComponent<BaseAI>();
+                        temp.damageBuff += 1;
+                        temp.defenceBuff -= 1;
+                        temp.UpdateIcons();
+                    }
+
+                    if (mech2Active) 
+                    {
+                        BaseAI temp;
+                        temp = mechSpawner.mech2.GetComponent<BaseAI>();
+                        temp.damageBuff += 1;
+                        temp.defenceBuff -= 1;
+                        temp.UpdateIcons();
+                    }
+
+                    if (mech3Active)
+                    {
+                        BaseAI temp;
+                        temp = mechSpawner.mech3.GetComponent<BaseAI>();
+                        temp.damageBuff += 1;
+                        temp.defenceBuff -= 1;
+                        temp.UpdateIcons();
+                    }
+
+                    if (mech4Active)
+                    {
+                        BaseAI temp;
+                        temp = mechSpawner.mech4.GetComponent<BaseAI>();
+                        temp.damageBuff += 1;
+                        temp.defenceBuff -= 1;
+                        temp.UpdateIcons();
+                    }
+
+                    if (mech5Active)
+                    {
+                        BaseAI temp;
+                        temp = mechSpawner.mech5.GetComponent<BaseAI>();
+                        temp.damageBuff += 1;
+                        temp.defenceBuff -= 1;
+                        temp.UpdateIcons();
+                    }
+                    break;
+                }
+            case (2): 
+                {
+
+                    break;
+                }
+            case (3):
+                {
+                    float tempHealth;
+                    if (mech1Active) //All Active Mechs heals for 20% of their hp
+                    {
+                        BaseAI temp;
+                        temp = mechSpawner.mech1.GetComponent<BaseAI>();
+                        tempHealth = temp.currentMaxHealth / 5f;
+                        temp.currentHealth += tempHealth;
+                    }
+
+                    if (mech2Active)
+                    {
+                        BaseAI temp;
+                        temp = mechSpawner.mech2.GetComponent<BaseAI>();
+                        tempHealth = temp.currentMaxHealth / 5f;
+                        temp.currentHealth += tempHealth;
+                    }
+
+                    if (mech3Active)
+                    {
+                        BaseAI temp;
+                        temp = mechSpawner.mech3.GetComponent<BaseAI>();
+                        tempHealth = temp.currentMaxHealth / 5f;
+                        temp.currentHealth += tempHealth;
+                    }
+
+                    if (mech4Active)
+                    {
+                        BaseAI temp;
+                        temp = mechSpawner.mech4.GetComponent<BaseAI>();
+                        tempHealth = temp.currentMaxHealth / 5f;
+                        temp.currentHealth += tempHealth;
+                    }
+
+                    if (mech5Active)
+                    {
+                        BaseAI temp;
+                        temp = mechSpawner.mech5.GetComponent<BaseAI>();
+                        tempHealth = temp.currentMaxHealth / 5f;
+                        temp.currentHealth += tempHealth;
+                    }
+                    break;
+                }
+            case (4): //+7 to cost
+                {
+                    cost += 7;
+                    break;
+                }
+            case (5): // +2 armor buff to all mechs
+                {
+                    if (mech1Active)
+                    {
+                        BaseAI temp;
+                        temp = mechSpawner.mech1.GetComponent<BaseAI>();
+                        temp.defenceBuff += 2;
+                        temp.UpdateIcons();
+                    }
+
+                    if (mech2Active)
+                    {
+                        BaseAI temp;
+                        temp = mechSpawner.mech2.GetComponent<BaseAI>();
+                        temp.defenceBuff += 2;
+                        temp.UpdateIcons();
+                    }
+
+                    if (mech3Active)
+                    {
+                        BaseAI temp;
+                        temp = mechSpawner.mech3.GetComponent<BaseAI>();
+                        temp.defenceBuff += 2;
+                        temp.UpdateIcons();
+                    }
+
+                    if (mech4Active)
+                    {
+                        BaseAI temp;
+                        temp = mechSpawner.mech4.GetComponent<BaseAI>();
+                        temp.defenceBuff += 2;
+                        temp.UpdateIcons();
+                    }
+
+                    if (mech5Active)
+                    {
+                        BaseAI temp;
+                        temp = mechSpawner.mech5.GetComponent<BaseAI>();
+                        temp.defenceBuff += 2;
+                        temp.UpdateIcons();
+                    }
+                    break;
+                }
+            case (6):
+                {
+
+                    break;
+                }
+            case (7):
+                {
+
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
     }
 }

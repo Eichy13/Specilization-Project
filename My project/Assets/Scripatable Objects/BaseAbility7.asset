@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BaseAbility7
   m_EditorClassIdentifier: 
   abilityID: 6
+  abilityName: Computed Plan
   abilityDescription: 'Computed Plan
 
     -1 Damage buff to all enemy Mechs'

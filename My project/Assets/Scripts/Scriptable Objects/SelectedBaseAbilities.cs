@@ -9,6 +9,9 @@ public class SelectedBaseAbilities : ScriptableObject
     public int abilityID;
 
     [TextArea(5, 10)]
+    public string abilityName;
+
+    [TextArea(5, 10)]
     public string abilityDescription;
 
     public Sprite abilityImage;

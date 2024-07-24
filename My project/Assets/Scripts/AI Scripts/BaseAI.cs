@@ -38,9 +38,8 @@ public class BaseAI : MonoBehaviour
     protected int currentMode; //Mode 0 = chasing/looking for unit, Mode 1 = Found a target and attacks it
     protected int currentStrafe; //Mode 0 = Strafe left, Mode 1 = Strafe right
     public bool dashActive; //If the dash is currently off cooldown
-    protected float damageBuff; //Goes up to -3 to +3
-    protected float defenceBuff; //Goes up to -3 to +3
-    protected float speedBuff; //Goes up to -3 to +3
+    public float damageBuff; //Goes up to -3 to +3
+    public float defenceBuff; //Goes up to -3 to +3
 
     [SerializeField] protected Image healthBarSprite;
     [SerializeField] protected Image[] damageBuffSprite;
@@ -60,6 +59,7 @@ public class BaseAI : MonoBehaviour
 
     //All objects in specific ranges
     protected List<GameObject> allyObjectsInRange3 = new List<GameObject>();
+    protected List<GameObject> enemyObjectsInRange3 = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -122,7 +122,6 @@ public class BaseAI : MonoBehaviour
         dashActive = false;
         damageBuff = 0;
         defenceBuff = 0;
-        speedBuff = 0;
         healthBarTarget = 1;
 
         if (currentMeleeDamage > currentRangedDamage)
@@ -356,26 +355,87 @@ public class BaseAI : MonoBehaviour
         healthBarTarget = currentHealth / currentMaxHealth;
     }
 
-    public void MechActive()
+    public void MechActive() //All mech active abilites (Animations in the future)
     {
-        MechActiveCheckers();
+        MechActiveAllyCheckers();
+        MechActiveEnemyCheckers();
         //Check which mech active to use
         switch (mechActiveType)
         {
-            case (0): // +1 Damage buff around an aoe (Small range)
+            case (0): // Slashes the sword at a target, granting it -1 level debuff to armor.
             {
-                foreach (GameObject obj in allyObjectsInRange3)
+                if (pilotPlayStyle == 0)
                 {
-                    BaseAI temp = obj.GetComponent<BaseAI>();
-                    if (damageBuff == 3)
-                    {
-                        break;
+                    BaseAI currentTargetAI = currentTarget.GetComponent<BaseAI>();
+                    if (currentTargetAI != null) //Attacking mech
+                    {  
+                        currentTargetAI.DamageTaken(currentMeleeDamage * 10, pilotAIType);
+                        if (damageBuff ==-3)
+                        {
+                            break;
+                        }
+                        currentTargetAI.defenceBuff -= 1;
                     }
-                    temp.damageBuff += 1;
-                    temp.UpdateIcons();
+
+                    BaseDefenceAI currentTargetBase = currentTarget.GetComponent<BaseDefenceAI>();
+                    if (currentTargetBase != null) //Attacking base
+                    {
+                        currentTargetBase.DamageTaken(currentMeleeDamage * 10, pilotAIType);
+                        //Add the armor debuff to buildings
+                    }
                 }
-                damageBuff += 1;
-                UpdateIcons();
+                else if (pilotPlayStyle == 1) 
+                {
+                    BaseAI currentTargetAI = currentTarget.GetComponent<BaseAI>();
+                    if (currentTargetAI != null) //Attacking mech
+                    {
+                        currentTargetAI.DamageTaken(currentRangedDamage * 10, pilotAIType);
+                        if (damageBuff == -3)
+                        {
+                            break;
+                        }
+                        currentTargetAI.defenceBuff -= 1;
+                    }
+
+                    BaseDefenceAI currentTargetBase = currentTarget.GetComponent<BaseDefenceAI>();
+                    if (currentTargetBase != null) //Attacking base
+                    {
+                        currentTargetBase.DamageTaken(currentRangedDamage * 10, pilotAIType);
+                        //Add the armor debuff to buildings
+                    }
+                }
+                break;
+            }
+            case (1): //Rapidly shoots a quick burst of lazers at its target.
+            {
+                if (pilotPlayStyle == 0)
+                {
+                    BaseAI currentTargetAI = currentTarget.GetComponent<BaseAI>();
+                    if (currentTargetAI != null) //Attacking mech
+                    {
+                        currentTargetAI.DamageTaken(currentMeleeDamage * 15, pilotAIType);
+                    }
+
+                    BaseDefenceAI currentTargetBase = currentTarget.GetComponent<BaseDefenceAI>();
+                    if (currentTargetBase != null) //Attacking base
+                    {
+                        currentTargetBase.DamageTaken(currentMeleeDamage * 15, pilotAIType);
+                    }
+                }
+                else if (pilotPlayStyle == 1)
+                {
+                    BaseAI currentTargetAI = currentTarget.GetComponent<BaseAI>();
+                    if (currentTargetAI != null) //Attacking mech
+                    {
+                        currentTargetAI.DamageTaken(currentRangedDamage * 15, pilotAIType);
+                    }
+
+                    BaseDefenceAI currentTargetBase = currentTarget.GetComponent<BaseDefenceAI>();
+                    if (currentTargetBase != null) //Attacking base
+                    {
+                        currentTargetBase.DamageTaken(currentRangedDamage * 15, pilotAIType);
+                    }
+                }
                 break;
             }
             case (2): //Ability: Overdive, Gains a +1 level damage buff
@@ -388,10 +448,40 @@ public class BaseAI : MonoBehaviour
                     UpdateIcons();
                     break;
             }
-            case (3): 
+            case (3): //All friendly mechs in a small radius gets a +1 armor buff
             {
-                damageBuff += 1;
+                foreach (GameObject obj in allyObjectsInRange3)
+                {
+                    BaseAI temp = obj.GetComponent<BaseAI>();
+                    if (temp.defenceBuff == 3)
+                    {
+                        break;
+                    }
+                    temp.defenceBuff += 1;
+                    temp.UpdateIcons();
+                }
+                if (defenceBuff == 3)
+                {
+                    break;
+                }
+                defenceBuff += 1;
                 UpdateIcons();
+                break;
+            }
+            case (5): //Does area damge around the mech (Only mechs)
+            {
+                foreach (GameObject obj in enemyObjectsInRange3)
+                {
+                    BaseAI temp = obj.GetComponent<BaseAI>();
+                    if (pilotPlayStyle == 0)
+                    {
+                        temp.DamageTaken(currentMeleeDamage * 12, pilotAIType);
+                    }
+                    else if (pilotPlayStyle == 1)
+                    {
+                        temp.DamageTaken(currentRangedDamage * 12, pilotAIType);
+                    }
+                }
                 break;
             }
             default: 
@@ -401,7 +491,7 @@ public class BaseAI : MonoBehaviour
         }   
     }
 
-    public void MechActiveCheckers() //Check all the near objects 
+    public void MechActiveAllyCheckers() //Check all the near objects 
     {
         //Clear all lists before checking again
         allyObjectsInRange3.Clear();
@@ -429,6 +519,39 @@ public class BaseAI : MonoBehaviour
                 if (distance <= nearestDistance)
                 {
                     allyObjectsInRange3.Add(obj);
+                }
+            }
+        }
+    }
+
+    public void MechActiveEnemyCheckers() //Check all the near objects 
+    {
+        //Clear all lists before checking again
+        enemyObjectsInRange3.Clear();
+
+        GameObject[] objectsWithTag;
+        if (teamNumber == 1)
+        {
+            objectsWithTag = GameObject.FindGameObjectsWithTag("Team2");
+        }
+        else
+        {
+            objectsWithTag = GameObject.FindGameObjectsWithTag("Team1");
+        }
+
+        float nearestDistance = 3; //Try see this radius
+
+        foreach (GameObject obj in objectsWithTag)
+        {
+            MonoBehaviour scriptComponent = obj.GetComponent<BaseAI>() as MonoBehaviour;
+
+            if (scriptComponent != null)
+            {
+                float distance = Vector3.Distance(transform.position, obj.transform.position);
+
+                if (distance <= nearestDistance)
+                {
+                    enemyObjectsInRange3.Add(obj);
                 }
             }
         }

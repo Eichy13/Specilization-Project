@@ -11,7 +11,15 @@ public class GameManager : MonoBehaviour
 
     private float timer;
     private float enemySpawnTimer;
-    private float countdownTime = 10f;
+    private float countdownTime = 150f;
+
+    //Temporary (Maybe) spawn triggers
+    private bool enemyWave1 = false; //140f
+    private bool enemyWave2 = false; //120f
+    private bool enemyWave3 = false; //100f
+    private bool enemyWave4 = false; //70f
+    private bool enemyWave5 = false; //50f
+    private bool enemyWave6 = false; //20f
 
     private bool gameStarted;
     private bool gameFrozen;
@@ -27,14 +35,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text winText;
     [SerializeField] private TMP_Text win2Text;
 
+    [SerializeField] private GameObject mechButtonObject;
     [SerializeField] private GameObject bgObject;
     [SerializeField] private GameObject mapObject;
-    [SerializeField] private GameObject notificationObject1;
-    [SerializeField] private GameObject notificationObject2;
+    [SerializeField] private GameObject notificationObject;
     [SerializeField] private GameObject abilityNotificationObject1;
     [SerializeField] private GameObject abilityNotificationObject2;
     [SerializeField] private GameObject deathNotificationObject;
     [SerializeField] private GameObject winNotificationObject;
+    [SerializeField] private GameObject baseNotificationObject1;
+    [SerializeField] private GameObject baseNotificationObject2;
+    [SerializeField] private GameObject enemyNotificationObject;
 
     [SerializeField] private BaseDefenceAI team1Turret1;
     [SerializeField] private BaseDefenceAI team1Turret2;
@@ -125,6 +136,51 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!enemyWave1 && countdownTime <= 140f)
+        {
+            enemyWave1 = true;
+            MechSpawner.Instance.SpawnEnemyAttackWave(0);
+            StartCoroutine(SpawnEnemyNotification(2f));
+            //Spawn attack wave 1
+        }
+
+        if (!enemyWave2 && countdownTime <= 120f)
+        {
+            enemyWave2 = true;
+            MechSpawner.Instance.SpawnEnemyAttackWave(1);
+            StartCoroutine(SpawnEnemyNotification(2f));
+            //Spawn attack wave 2
+        }
+
+        if (!enemyWave3 && countdownTime <= 100f)
+        {
+            enemyWave3 = true;
+            MechSpawner.Instance.SpawnEnemyAttackWave(2);
+            StartCoroutine(SpawnEnemyNotification(2f));
+            //Spawn attack wave 3
+        }
+
+        if (!enemyWave4 && countdownTime <= 70f)
+        {
+            enemyWave4 = true;
+            MechSpawner.Instance.SpawnEnemyAttackWave(3);
+            StartCoroutine(SpawnEnemyNotification(2f));
+            //Spawn attack wave 4
+        }
+
+        if (!enemyWave5 && countdownTime <= 50f)
+        {
+            enemyWave5 = true;
+            MechSpawner.Instance.SpawnEnemyAttackWave(4);
+            StartCoroutine(SpawnEnemyNotification(2f));
+            //Spawn attack wave 5
+        }
+
+        if (!enemyWave6 && timer <= 20f)
+        {
+            enemyWave6 = true;
+            //Spawn attack wave 6
+        }
         UpdateHealthText();
 
         if (gameStarted && !gameFrozen)
@@ -189,10 +245,10 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SpawnNotification(float freezeDuration)
     {
-        notificationObject1.SetActive(true);
+        notificationObject.SetActive(true);
         //Freeze all active mechs, turrets and timer (maybe idk might be too hard too do)
         yield return new WaitForSeconds(freezeDuration);
-        notificationObject1.SetActive(false);
+        notificationObject.SetActive(false);
     }
 
     public void AbilityFreeze(float freezeDuration)
@@ -224,7 +280,33 @@ public class GameManager : MonoBehaviour
         deathNotificationObject.SetActive(false);
     }
 
-    private void UpdateHealthText()
+    public void BaseAbility(float freezeDuration)
+    {
+        StartCoroutine(SpawnBaseNotification(freezeDuration));
+    }
+
+    private IEnumerator SpawnBaseNotification(float freezeDuration)
+    {
+        mechButtonObject.SetActive(false);
+        baseNotificationObject1.SetActive(true);
+        //Freeze all active mechs, turrets and timer (maybe idk might be too hard too do)
+        yield return new WaitForSeconds(freezeDuration / 2);
+        baseNotificationObject1.SetActive(false);
+        baseNotificationObject2.SetActive(true);
+        yield return new WaitForSeconds(freezeDuration / 2);
+        baseNotificationObject2.SetActive(false);
+        mechButtonObject.SetActive(true);
+    }
+
+    private IEnumerator SpawnEnemyNotification(float freezeDuration)
+    {
+        enemyNotificationObject.SetActive(true);
+        //Freeze all active mechs, turrets and timer (maybe idk might be too hard too do)
+        yield return new WaitForSeconds(freezeDuration);
+        enemyNotificationObject.SetActive(false);
+    }
+
+    private void UpdateHealthText() //Add a way to update the healthbars when the turrets die
     {
         if (team1Turret1 != null)
         {

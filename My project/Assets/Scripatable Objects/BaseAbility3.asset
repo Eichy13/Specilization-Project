@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BaseAbility3
   m_EditorClassIdentifier: 
   abilityID: 2
+  abilityName: Entrusted Thoughts
   abilityDescription: 'Entrusted Thoughts
 
     All Base Buildings Gains +2 Damage

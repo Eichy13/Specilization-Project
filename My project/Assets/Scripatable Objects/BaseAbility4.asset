@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: BaseAbility4
   m_EditorClassIdentifier: 
   abilityID: 3
-  abilityDescription: "Warriors Rest \nAll Mechs heals for 20% of their hp"
+  abilityName: 'Warriors Rest '
+  abilityDescription: "Warriors Rest \nAll Active Mechs heals for 20% of their hp"
   abilityImage: {fileID: 21300000, guid: bc04859b0cb367841b0878176c72bcea, type: 3}
